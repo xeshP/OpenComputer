@@ -242,7 +242,7 @@ if depsize == 27 and inpsize == 27 then
                     gpu.setForeground(0xff0000)
                     term.write(round..":"..inv.getStackInSlot(sides.down, round).label.." x "..siz.." beschlagnahmt")
                     inv.transferItem(sides.down,sides.south)
-                    os.sleep(3)
+                    os.sleep(3.8)
                     term.clearLine()
                 end
             end
