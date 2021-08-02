@@ -1,0 +1,29 @@
+component = require("component")
+sides = require("sides")
+inv = component.transposer
+depsize = inv.getInventorySize(sides.back, 1)
+inpsize = inv.getInventorySize(sides.right, 1)
+print(depsize)
+print(inpsize)
+round = 1
+tr = true
+while tr == true do
+if depsize == 27 and inpsize == 27 then
+    print("----------------------------------------")
+    depsize = 27
+    while round <= depsize do
+        if type(inv.getStackInSlot(sides.right, round)) == "table" then
+            sizr = tostring(inv.getStackInSlot(sides.right, round).size)
+            siz = string.sub(sizr, 1, #sizr-2)
+            print(round..":"..inv.getStackInSlot(sides.right, round).label.." x "..siz)
+            if inv.getStackInSlot(sides.right, round).name == "minecraft:coal" then
+                print("transfer attempt!111")
+                inv.transferItem(sides.right,sides.back,tonumber(sizr),round, 16)
+                end
+            end
+        round = (round+1)
+        end
+    end
+    round = 1
+    os.sleep(2)
+    end
