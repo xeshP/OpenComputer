@@ -1,0 +1,254 @@
+component = require("component")
+sides = require("sides")
+term = require("term")
+shell = require("shell")
+gpu = component.gpu
+red = component.redstone
+local w, h = gpu.getResolution()
+gpu.fill(1, 1, w, h, " ")
+ 
+filer=io.open("sl.txt","r")
+slash=filer:read("*all")
+filer:close()
+
+
+term.clear()
+-----textscale
+gpu.setResolution(50, 20)
+spac = "  "
+
+
+function tafel(blink)
+if blink == 1 then
+    gpu.fill(1, 1, 50, 8, " ")
+    os.sleep(0.9)
+    end
+term.setCursor(1,1)
+gpu.setForeground(0xff0000)
+term.write(spac.."         )        (              )     )")
+term.setCursor(1,2)
+
+term.write(spac.."   (  ( /(  (     )"..slash.." )     (  ( /(  ( /(")
+term.setCursor(1,3)
+
+term.write(spac.."   )"..slash.." )"..slash.."()) )"..slash.."   (()/(     )"..slash.." )"..slash.."()) )"..slash.."())(")
+term.setCursor(1,4)
+
+term.write(spac.." (((_((_)((((_)(  /(_))  (((_((_)"..slash.."|((_)"..slash.." )"..slash.."")
+term.setCursor(1,5)
+
+term.write(spac.." )"..slash)
+gpu.setForeground(0xFFFFFF)
+term.write("___ ")
+gpu.setForeground(0xff0000)
+term.write("((")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write(")"..slash)
+gpu.setForeground(0xFFFFFF)
+term.write(" _")
+gpu.setForeground(0xff0000)
+term.write(" )")
+term.write(slash.."(")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write("))    )"..slash)
+gpu.setForeground(0xFFFFFF)
+term.write("___")
+gpu.setForeground(0xff0000)
+term.write(" ((")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write("|")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write(" ((")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write("((")
+gpu.setForeground(0xFFFFFF)
+term.write("_")
+gpu.setForeground(0xff0000)
+term.write(")")
+term.setCursor(1,6)
+
+
+
+term.write(spac.."((")
+gpu.setForeground(0xFFFFFF)
+term.write("/ __/ _ ")
+gpu.setForeground(0xff0000)
+term.write("(_)")
+gpu.setForeground(0xFFFFFF)
+term.write("_"..slash)
+gpu.setForeground(0xff0000)
+term.write("(_")
+gpu.setForeground(0xFFFFFF)
+term.write("| |    ")
+gpu.setForeground(0xff0000)
+term.write("((")
+gpu.setForeground(0xFFFFFF)
+term.write("/ __/ _ "..slash.."||/ /| __|")
+term.setCursor(1,7)
+
+term.write(spac.." | (_| (_) / _ "..slash.." | |__   | (_| (_) |  < | _|")
+term.setCursor(1,8)
+
+term.write(spac.."  "..slash.."___"..slash.."___/_/ "..slash.."_"..slash.."|____|   "..slash.."___"..slash.."___/||"..slash.."_"..slash.."|___| ")
+
+gpu.setForeground(0xff0000)
+term.setCursor(1,10)
+term.write("-")
+gpu.setForeground(0xffd700)
+term.write("Recycle deine kohle und erhalte somit 50% mehr")
+term.setCursor(1,11)
+term.write(" Kohle Energie ohne wartezeit!")
+term.setCursor(1,12)
+gpu.setForeground(0xff0000)
+term.write("-")
+gpu.setForeground(0xffd700)
+term.write("Es kann nur solang Kohle angekauft werden")
+term.setCursor(1,13)
+term.write(" solange der vorrat reicht.")
+term.setCursor(1,14)
+gpu.setForeground(0xff0000)
+term.write("-")
+gpu.setForeground(0xffd700)
+term.write("Der Kohle einwurf startet den recycling prozess")
+term.setCursor(1,15)
+term.write(" der Kunde muss jedoch nicht warten und kriegt")
+term.setCursor(1,16)
+term.write(" sofort 50% mehr Kohle Energie ausbezahlt.")
+end
+
+
+
+inv = component.transposer
+depsize = inv.getInventorySize(sides.west, 1)
+deptrash = "north"
+inpsize = inv.getInventorySize(sides.down, 1)
+
+round = 1
+tr = true
+coalcount = 0
+
+
+
+function rechnung()
+    gpu.fill(1, 1, w, h, " ")
+    term.setCursor(1,5)
+    term.write("  "..coalcount.." x ".."1600 = "..(coalcount*1600).." Carbon Energie")
+    term.setCursor(1,6)
+    term.write(("  "..coalcount*1600).." x 50% = "..((coalcount*1600)*1.5).." mit Energie Bonus")
+    term.setCursor(1,7)
+    term.write("  "..((coalcount*1600)*1.5).." : 3200 Carbon Energie = "..((coalcount*1600)*1.5)/3200)
+    term.setCursor(1,8)
+    term.write("  == "..(((coalcount*1600)*1.5)/3200).." Coal Coke")
+    os.sleep(1)
+    end
+
+
+function payed(amo)
+    coalcountdiv = tostring((coalcount/4))
+    endo = string.sub(coalcountdiv, #coalcountdiv)
+    term.setCursor(1,20)
+    term.clearLine()
+    gpu.setForeground(0xff0000)
+    term.write(" Kohle Eingezahlt:["..coalcount.."]")
+    os.sleep(1)
+    if tonumber(endo) == 0 then
+        term.setCursor(1,20)
+        gpu.setForeground(0x0fc4f1)
+        term.write("                 !SUCCESS!PAYED!")
+        withdraw = (coalcount*0.75)
+        runs = 1
+        rechnung()
+        while runs <= withdraw do
+            red.setOutput(sides.front, 5)
+            red.setOutput(sides.front, 0)
+            runs = (runs+1)
+            end
+            tr = false
+            end
+        end
+
+    
+    
+
+
+
+fortrade = 0
+while tr == true do
+if depsize == 27 and inpsize == 27 then
+    rgh = 1
+    while rgh <= 9 do
+        fortrade = fortrade+inv.getSlotStackSize(sides.up, rgh)
+        rgh = (rgh+1)
+        end
+        ftj = 1
+        if fortrade == 576 then
+            fortrade2 = 0
+            while ftj <= 9 do
+                fortrade2 = fortrade2+inv.getSlotStackSize(sides.south, ftj)
+                ftj = (ftj+1)
+                end
+                fortrade = (fortrade+fortrade2)
+            end
+    fortrade = (math.floor(fortrade))
+    frtrade = fortrade/0.75
+    endos = string.sub(frtrade, #tostring(frtrade))
+    rbj = 1
+    while tonumber(endos) ~= 0 do
+        frtrade = (fortrade-rbj)/0.75
+        frtraderr = (frtrade/4)
+        endos = string.sub(tostring(frtraderr), #tostring(frtraderr))
+        rbj = (rbj+1)
+        end
+    tafel(1)
+    gpu.setForeground(0x27ae60)
+    term.setCursor(1,18)
+    term.write("■")
+    gpu.setForeground(0xFFFFFF)
+    term.write("CoalCoke in vorrat :"..fortrade)
+    gpu.setForeground(0xFFFFFF)
+    term.setCursor(1,19)
+    gpu.setForeground(0x27ae60) 
+    term.write("■")
+    gpu.setForeground(0xFFFFFF)
+    term.write("Max tauschbare Kohle :"..math.floor(frtrade))
+    fortrade = 0
+    depsize = 27
+    while round <= depsize do
+        if type(inv.getStackInSlot(sides.down, round)) == "table" then
+            sizr = tostring(inv.getStackInSlot(sides.down, round).size)
+            siz = string.sub(sizr, 1, #sizr-2)
+            if inv.getStackInSlot(sides.down, round).name == "minecraft:coal" then
+                inv.transferItem(sides.down,sides.west,tonumber(sizr),round)
+                coalcount = (coalcount+tonumber(siz))
+                payed(sizr)
+                else
+                    term.setCursor(1,20)
+                    term.clearLine()
+                    gpu.setForeground(0xff0000)
+                    term.write(round..":"..inv.getStackInSlot(sides.down, round).label.." x "..siz.." beschlagnahmt")
+                    inv.transferItem(sides.down,sides.south)
+                    os.sleep(3)
+                    term.clearLine()
+                end
+            end
+        round = (round+1)
+        end
+    end
+    round = 1
+    os.sleep(2.4)
+    end
+os.sleep(10)
+shell.execute("tes")
+
+
+
