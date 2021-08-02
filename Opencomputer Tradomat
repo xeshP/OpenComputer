@@ -129,9 +129,14 @@ end
 
 
 inv = component.transposer
-depsize = inv.getInventorySize(sides.west, 1)
-deptrash = "north"
+depsize = inv.getInventorySize(sides.east, 1)
 inpsize = inv.getInventorySize(sides.down, 1)
+----depositcoalcoke und input müssen 27 sein
+depositcoalcoke = "east"
+depositcoal = "west"
+deposittrash = "south"
+inputbox = "down"
+
 
 round = 1
 tr = true
