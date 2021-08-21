@@ -1,0 +1,34 @@
+math.randomseed(os.time()) -- so that the results are always different
+function FYShuffle( tInput )
+    local tReturn = {}
+    for i = #tInput, 1, -1 do
+        local j = math.random(i)
+        tInput[i], tInput[j] = tInput[j], tInput[i]
+        table.insert(tReturn, tInput[i])
+    end
+    return tReturn
+end
+	
+
+	
+local modem=component.proxy(component.list("modem")())
+modem.open(5)
+round = 0
+          --red,   aqua,    orange,  greenlime, white,  yellow
+colors = {"0xFF0000","0x00D8FF","0xca7b00","0x00FF00","0xffffff","0xd1ff00"}
+while true do
+    round = (round+1)
+    local e, _, _, _, _, command = computer.pullSignal()
+    if e == "modem_message" then
+        pcall(load(command))
+		colpast = colors[1]
+		while colpast == colors[1] do
+				FYShuffle(colors)
+				end
+        drone.setLightColor(tonumber(colors[1]))
+        end
+        if round == 6 then
+            round = 0
+            end
+        end
+        
