@@ -1,0 +1,77 @@
+component = require("component")
+
+
+m=component.modem
+m.broadcast(5, "drone=component.proxy(component.list('drone')())")
+
+mover = function()
+   for dir in string.gmatch(line, "[^%s]+") do
+       round = (round+1)
+   if round == 1 then
+        direction = dir
+        else if round == 2 then
+            anzahl = dir
+            if anzahl == "down" then
+                anzahl = 0
+                else if anzahl == "up" then
+                    anzahl = 1
+                    else if anzahl == "left" then
+                        anzahl = 2
+                        else if anzahl == "right" then
+                            anzahl = 3
+                            else if anzahl == "back" then
+                                anzahl = 4
+                                else if anzahl == "front" then
+                                    anzahl = 5
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+
+if direction == "w" then
+    m.broadcast(5, "drone.move("..anzahl..",0,0)")
+    else if direction == "s" then
+        m.broadcast(5, "drone.move(-"..anzahl..",0,0)")
+        else if direction == "d" then
+            m.broadcast(5, "drone.move(0,0,"..anzahl..")")
+            else if direction == "a" then
+                m.broadcast(5, "drone.move(0,0,-"..anzahl..")")
+                else if direction == "u" then
+                    m.broadcast(5, "drone.move(0,"..anzahl..",0)")
+                    else if direction == "dd" then
+                        m.broadcast(5, "drone.move(0,-"..anzahl..",0)")
+                        else if direction == "rce" then
+                            lin = io.read()
+                            m.broadcast(5, lin)
+                            else if direction == "use" then
+                                m.broadcast(5, "drone.use("..anzahl..")")
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+
+ex = false
+while ex == false do
+    round = 0
+    anzahl = 1
+    line = io.read()
+    if line == "exit" then
+        ex = true
+        else
+            mover()
+        end
+    end
+    
+
