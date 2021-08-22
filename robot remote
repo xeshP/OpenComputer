@@ -1,0 +1,46 @@
+component = require("component")
+
+
+m=component.modem
+
+
+crit = function()
+    inputa = {}
+    for substring in line:gmatch("%S+") do
+        table.insert(inputa, substring)
+        end
+    if inputa[2] == nil then
+        anzahl = 1
+        else
+            anzahl = tonumber(inputa[2])
+            end
+
+    if inputa[1] == "w" then
+        mover("robot.forward()", anzahl)
+        end
+    end
+    
+
+
+
+mover = function(dir, anzahl)
+    while anzahl >= 1 do
+        m.broadcast(5, dir)
+        anzahl = (anzahl-1)
+        end
+    end
+
+
+
+
+ex = false
+while ex == false do
+    round = 0
+    anzahl = 1
+    line = io.read()
+    if line == "exit" then
+        ex = true
+        else
+            crit()
+        end
+    end
