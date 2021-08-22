@@ -1,0 +1,33 @@
+math.randomseed(os.time()) -- so that the results are always different
+function FYShuffle( tInput )
+    local tReturn = {}
+    for i = #tInput, 1, -1 do
+        local j = math.random(i)
+        tInput[i], tInput[j] = tInput[j], tInput[i]
+        table.insert(tReturn, tInput[i])
+    end
+    return tReturn
+end
+	
+point = "."
+component = require("component")
+event = require("event")
+robot = require("robot")
+local modem = component.modem
+modem.open(5)
+          --red,   aqua,    orange,  greenlime, white,  yellow
+colors = {"0xFF0000","0x00D8FF","0xca7b00","0x00FF00","0xffffff","0xd1ff00"}
+while true do
+    local e, _, _, _, _, command = event.pull()
+    if e == "modem_message" then
+        print(command)
+        pcall(load(command))
+        end
+
+    colpast = colors[1]
+	while colpast == colors[1] do
+	    
+		FYShuffle(colors)
+		end
+    robot.setLightColor(tonumber(colors[1]))
+    end
