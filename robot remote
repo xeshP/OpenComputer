@@ -17,6 +17,22 @@ crit = function()
 
     if inputa[1] == "w" then
         mover("robot.forward()", anzahl)
+        else if inputa[1] == "a" then
+            mover("robot.turnLeft()", anzahl)
+            else if inputa[1] == "s" then
+                mover("robot.back()", anzahl)
+                else if inputa[1] == "d" then
+                    mover("robot.turnRight()", anzahl)
+                    else if inputa[1] == "u" then
+                        mover("robot.up()", anzahl)
+                        else if inputa[1] == "dd" then
+                            mover("robot.down()", anzahl)
+                            end
+                        end
+                    end
+                end
+            end
+            
         end
     end
     
