@@ -1,7 +1,8 @@
 component = require("component")
 
-
+event = require("event")
 m=component.modem
+m.open(6)
 
 
 crit = function()
@@ -44,7 +45,17 @@ mover = function(dir, anzahl)
         m.broadcast(5, dir)
         anzahl = (anzahl-1)
         end
+    mess = false
+    rnd = 0
+    while mess == false do
+        local e, _, _, _, _, msg = event.pull()
+        if e == "modem_message" then
+        print(msg)
+        mess = true
+        end
     end
+end
+
 
 
 
