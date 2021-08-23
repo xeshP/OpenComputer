@@ -9,7 +9,7 @@ function FYShuffle( tInput )
     return tReturn
 end
 	
-point = "."
+	
 component = require("component")
 inv = component.inventory_controller
 event = require("event")
@@ -22,7 +22,6 @@ while true do
     local e, _, _, _, _, command = event.pull()
     if e == "modem_message" then
         if command == "sinfo" then
-            inv = component.inventory_controller
             stable = {}
             for slot = 1, 16 do
                 ino = inv.getStackInInternalSlot(slot)
@@ -34,16 +33,21 @@ while true do
                 end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
-            
-            
-            
-            
+        else if command == "exinfo" then
+            print("exinfo!")
+            exslot = 1
+            exslotinv = inv.getStackInSlot(3, exslot)
+            print("["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
+            modem.broadcast(6, "["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
             else
                 print(command)
                 pcall(load(command))
                 modem.broadcast(6, "Command Executed!!1")
                 end
             end
+        end
+
+            
         
 
     colpast = colors[1]
