@@ -45,7 +45,9 @@ crit = function()
                                         messo = true
                                         end
                                     end
-                                    
+                                else if inputa[1] == "select" then
+                                    rce("robot.select("..anzahl..")")
+                                    end
                                 end
                             end
                         end
@@ -56,6 +58,23 @@ crit = function()
         end
     end
     
+
+
+
+rce = function(rcecommand)
+    m.broadcast(5, rcecommand)
+    messi = false
+    while messi == false do
+        local e, _, _, _, _, msgo = event.pull()
+        if e == "modem_message" then
+        print(msgo)
+        messi = true
+        end
+    end
+end
+
+
+
 
 
 
