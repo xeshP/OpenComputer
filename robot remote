@@ -47,6 +47,10 @@ crit = function()
                                     end
                                 else if inputa[1] == "select" then
                                     rce("robot.select("..anzahl..")")
+                                    else if inputa[1] == "rce" then
+                                        rceline = io.read()
+                                        rce(rceline)
+                                        end
                                     end
                                 end
                             end
