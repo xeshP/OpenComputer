@@ -20,10 +20,30 @@ colors = {"0xFF0000","0x00D8FF","0xca7b00","0x00FF00","0xffffff","0xd1ff00"}
 while true do
     local e, _, _, _, _, command = event.pull()
     if e == "modem_message" then
-        print(command)
-        pcall(load(command))
-        modem.broadcast(6, "YALLA!")
-        end
+        if command == "sinfo" then
+            inv = component.inventory_controller
+            stable = {}
+            for slot = 1, 16 do
+                ino = inv.getStackInInternalSlot(slot)
+                if type(ino) == "table" then
+                    inf = "["..slot.."] "..ino.name.." ["..ino.size.."]"
+                    print(inf)
+                    table.insert(stable, inf)
+                    end
+                end
+            msg = require("serialization").serialize(stable)
+            modem.broadcast(6, msg)
+            
+            
+            
+            
+            else
+                print(command)
+                pcall(load(command))
+                modem.broadcast(6, "YALLA!")
+                end
+            end
+        
 
     colpast = colors[1]
 	while colpast == colors[1] do
