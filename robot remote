@@ -28,6 +28,25 @@ crit = function()
                         mover("robot.up()", anzahl)
                         else if inputa[1] == "dd" then
                             mover("robot.down()", anzahl)
+                            else if inputa[1] == "sinfo" then
+                                m.broadcast(5, "sinfo")
+                                messo = false
+                                while messo == false do
+                                    local e, _, _, _, _, stableC = event.pull()
+                                    if e == "modem_message" then
+                                        stable = require("serialization").unserialize(stableC)
+
+                                        for slot = 1,16 do
+                                            
+                                            if type(stable[slot]) == "string" then
+                                                print(stable[slot])
+                                                end
+                                            end
+                                        messo = true
+                                        end
+                                    end
+                                    
+                                end
                             end
                         end
                     end
