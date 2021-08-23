@@ -11,6 +11,7 @@ end
 	
 point = "."
 component = require("component")
+inv = component.inventory_controller
 event = require("event")
 robot = require("robot")
 local modem = component.modem
