@@ -39,6 +39,18 @@ while true do
             exslotinv = inv.getStackInSlot(3, exslot)
             print("["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
             modem.broadcast(6, "["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
+        else if command == "radar!" then
+            radar=component.radar
+            playertable = {}
+            print("getRadarfunc")
+            pr = radar.getPlayers()
+            for k, v in pairs(pr[1]) do
+                print(k.." : "..v)
+                table.insert(playertable, k.." : "..v)
+                end
+            msgp = require("serialization").serialize(playertable)
+            modem.broadcast(6, msgp)
+
             else
                 print(command)
                 pcall(load(command))
@@ -46,6 +58,8 @@ while true do
                 end
             end
         end
+    end
+    
 
             
         
