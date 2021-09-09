@@ -1,6 +1,9 @@
 component = require("component")
 compressor = component.advanced_air_compressor
-inv = component.transposer
+transposer1 = "a08f3aa3-e4a4-45d8-ab10-14eca5aab9a4"
+compressor1 = "91246d04-ee67-4bb8-a4bd-c0a88baf1af4"
+inv = component.proxy(transposer1)
+compressor = component.proxy(compressor1)
 
 print(compressor.getPressure())
 
@@ -8,10 +11,10 @@ slot = 1
 invstack = true
 while invstack == true do
     if compressor.getPressure() > 4 then
-        print("above 4")
+        
         os.sleep(5)
     else
-        
+        print("Under 4")
         if inv.getSlotStackSize(3, slot) == 0 then
             slot = slot+1
             if slot > inv.getInventorySize(3) then
