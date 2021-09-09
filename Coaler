@@ -1,0 +1,31 @@
+component = require("component")
+compressor = component.advanced_air_compressor
+inv = component.transposer
+
+print(compressor.getPressure())
+
+slot = 1
+invstack = true
+while invstack == true do
+    if compressor.getPressure() > 4 then
+        print("above 4")
+        os.sleep(5)
+    else
+        
+        if inv.getSlotStackSize(3, slot) == 0 then
+            slot = slot+1
+            if slot > inv.getInventorySize(3) then
+                invstack = false
+                print("Nothin in inv found!11")
+            end
+        else
+            coalstack = inv.getSlotStackSize(2, 1)
+            if coalstack < 2 then
+                inv.transferItem(3, 2, 2, slot, 1)
+                os.sleep(5)
+            end
+                
+        end
+
+    end
+end
