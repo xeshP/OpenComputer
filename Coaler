@@ -9,7 +9,6 @@ inv2 = component.proxy(transposer2)
 compressor1 = component.proxy(compressorhash1)
 compressor2 = component.proxy(compressorhash2)
 
-print(compressor.getPressure())
 
 slot1 = 1
 slot2 = 1
@@ -18,9 +17,9 @@ invstack2 = true
 while invstack1 == true or invstack2 == true do
     if compressor1.getPressure() > 4 then
         
-        os.sleep(2.5)
+        os.sleep(1)
     else
-        print("Compressor1 Under 4")
+        print("Compressor1 Underpressure ("..compressor1.getPressure()..")")
         if inv1.getSlotStackSize(3, slot1) == 0 then
             slot1 = slot1+1
             if slot1 > inv1.getInventorySize(3) then
@@ -45,9 +44,9 @@ while invstack1 == true or invstack2 == true do
     
     if compressor2.getPressure() > 4 then
         
-        os.sleep(2.5)
+        os.sleep(1)
     else
-        print("Compressor2 Under 4")
+        print("Compressor2 Underpressure ("..compressor2.getPressure()..")")
         if inv2.getSlotStackSize(2, slot2) == 0 then
             slot2 = slot2+1
             if slot2 > inv2.getInventorySize(2) then
