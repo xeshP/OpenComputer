@@ -9,6 +9,11 @@ inv2 = component.proxy(transposer2)
 compressor1 = component.proxy(compressorhash1)
 compressor2 = component.proxy(compressorhash2)
 
+gpu = component.gpu
+width, height = gpu.getResolution()
+
+
+
 
 slot1 = 1
 slot2 = 1
@@ -16,22 +21,29 @@ invstack1 = true
 invstack2 = true
 while invstack1 == true or invstack2 == true do
     if compressor1.getPressure() > 4 then
+        if compressor1.getTemperature() > 450 then
+            gpu.setForeground(0xFFFFFF)
+            print("                                             Compressor1 Heat ("..compressor1.getTemperature()..")")
+            gpu.setForeground(0xFF0000)
+            print("                                                "..math.floor(compressor1.getTemperature()))
+        end
+        
         
         os.sleep(1)
     else
-        print("Compressor1 Underpressure ("..compressor1.getPressure()..")")
+        print("                                             Compressor1 Underpressure ("..compressor1.getPressure()..")   "..compressor1.getTemperature().."°")
         if inv1.getSlotStackSize(3, slot1) == 0 then
             slot1 = slot1+1
             if slot1 > inv1.getInventorySize(3) then
                 invstack1 = false
-                print("Nothin in inv1 found!!")
+                print("                                             Nothin in inv1 found!!")
                 slot1 = 1
             end
         else
             coalstack1 = inv1.getSlotStackSize(2, 1)
             if coalstack1 < 2 then
                 inv1.transferItem(3, 2, 2, slot1, 1)
-                os.sleep(5)
+                os.sleep(2.5)
             end
                 
         end
@@ -43,29 +55,35 @@ while invstack1 == true or invstack2 == true do
 
     
     if compressor2.getPressure() > 4 then
+        if compressor1.getTemperature() > 450 then
+            gpu.setForeground(0xFFFFFF)
+            print("                                             Compressor2 Heat ("..compressor2.getTemperature()..")")
+            gpu.setForeground(0xFF0000)
+            print("                                             "..math.floor(compressor1.getTemperature()))
+        end
+        
+        
         
         os.sleep(1)
     else
-        print("Compressor2 Underpressure ("..compressor2.getPressure()..")")
+        print("                                             Compressor2 Underpressure ("..compressor2.getPressure()..")    "..compressor1.getTemperature().."°")
         if inv2.getSlotStackSize(2, slot2) == 0 then
             slot2 = slot2+1
             if slot2 > inv2.getInventorySize(2) then
                 invstack2 = false
-                print("Nothin in inv2 found!!")
+                print("                                             Nothin in inv2 found!!")
                 slot2 = 1
             end
         else
             coalstack2 = inv2.getSlotStackSize(3, 1)
             if coalstack2 < 2 then
                 inv2.transferItem(2, 3, 2, slot2, 1)
-                os.sleep(5)
+                os.sleep(2.5)
             end
                 
         end
 
     end
-
-
 
 
 
