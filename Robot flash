@@ -23,14 +23,19 @@ while true do
     if e == "modem_message" then
         if command == "sinfo" then
             stable = {}
+            isTableClear = 1
             for slot = 1, 16 do
                 ino = inv.getStackInInternalSlot(slot)
                 if type(ino) == "table" then
                     inf = "["..slot.."] "..ino.name.." ["..ino.size.."]"
                     print(inf)
                     table.insert(stable, inf)
+                    isTableClear = 0
                     end
                 end
+            if isTableClear == 1 then
+                stable = {"Nothin found in InternalInv!"}
+            end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
         else if command == "exinfo" then
@@ -45,7 +50,7 @@ while true do
                     end
                 end
             else
-                stable = {"Nothin found in externalInv"}
+                stable = {"Nothin found in ExternalInv!"}
             end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
