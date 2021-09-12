@@ -33,19 +33,22 @@ while true do
                 end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
-            stable = {}
         else if command == "exinfo" then
-            for slot = 1, inv.getInventorySize(3) do
-                ino = inv.getStackInSlot(3, slot)
-                if type(ino) == "table" then
-                    inf = "["..slot.."] "..ino.name.." ["..ino.size.."]"
-                    print(inf)
-                    table.insert(stable, inf)
+            stable = {}
+            if inv.getInventorySize(3) then
+                for slot = 1, inv.getInventorySize(3) do
+                    ino = inv.getStackInSlot(3, slot)
+                    if type(ino) == "table" then
+                        inf = "["..slot.."] "..ino.name.." ["..ino.size.."]"
+                        print(inf)
+                        table.insert(stable, inf)
+                    end
                 end
+            else
+                stable = {"Nothin found in externalInv"}
             end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
-            stable = {}
         else if command == "radar!" then
             radar=component.radar
             playertable = {}
