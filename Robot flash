@@ -33,12 +33,19 @@ while true do
                 end
             msg = require("serialization").serialize(stable)
             modem.broadcast(6, msg)
+            stable = {}
         else if command == "exinfo" then
-            print("exinfo!")
-            exslot = 1
-            exslotinv = inv.getStackInSlot(3, exslot)
-            print("["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
-            modem.broadcast(6, "["..exslot.."] "..exslotinv.name.." ["..exslotinv.size.."]")
+            for slot = 1, inv.getInventorySize(3) do
+                ino = inv.getStackInSlot(3, slot)
+                if type(ino) == "table" then
+                    inf = "["..slot.."] "..ino.name.." ["..ino.size.."]"
+                    print(inf)
+                    table.insert(stable, inf)
+                end
+            end
+            msg = require("serialization").serialize(stable)
+            modem.broadcast(6, msg)
+            stable = {}
         else if command == "radar!" then
             radar=component.radar
             playertable = {}
