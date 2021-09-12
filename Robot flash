@@ -59,10 +59,15 @@ while true do
             playertable = {}
             print("getRadarfunc")
             pr = radar.getPlayers()
-            for k, v in pairs(pr[1]) do
-                print(k.." : "..v)
-                table.insert(playertable, k.." : "..v)
+            if #pr  >= 1 then
+                for k, v in pairs(pr[1]) do
+                    print(k.." : "..v)
+                    table.insert(playertable, k.." : "..v)
                 end
+            else
+                playertable = {"No Player Found!"}
+            end
+            
             msgp = require("serialization").serialize(playertable)
             modem.broadcast(6, msgp)
 
