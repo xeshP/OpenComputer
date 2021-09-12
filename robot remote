@@ -36,7 +36,7 @@ crit = function()
                                     if e == "modem_message" then
                                         stable = require("serialization").unserialize(stableC)
 
-                                        for slot = 1,16 do
+                                        for slot in pairs(stable) do
                                             
                                             if type(stable[slot]) == "string" then
                                                 print(stable[slot])
