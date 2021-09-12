@@ -17,7 +17,7 @@ crit = function()
             end
 
     if inputa[1] == "w" then
-        mover("robot.forward()", anzahl)
+        mover("robot.swing();robot.forward()", anzahl)
         else if inputa[1] == "a" then
             mover("robot.turnLeft()", anzahl)
             else if inputa[1] == "s" then
@@ -25,9 +25,9 @@ crit = function()
                 else if inputa[1] == "d" then
                     mover("robot.turnRight()", anzahl)
                     else if inputa[1] == "u" then
-                        mover("robot.up()", anzahl)
+                        mover("robot.swing();robot.up()", anzahl)
                         else if inputa[1] == "dd" then
-                            mover("robot.down()", anzahl)
+                            mover("robot.swing();robot.down()", anzahl)
                             else if inputa[1] == "sinfo" then
                                 m.broadcast(5, "sinfo")
                                 messo = false
