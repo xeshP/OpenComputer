@@ -28,8 +28,13 @@ crit = function()
                         mover("robot.swing();robot.up()", anzahl)
                         else if inputa[1] == "dd" then
                             mover("robot.swing();robot.down()", anzahl)
-                            else if inputa[1] == "sinfo" then
-                                m.broadcast(5, "sinfo")
+                            else if inputa[1] == "sinfo" or inputa[1] == "exinfo" then
+                                if inputa[1] == "sinfo" then
+                                    m.broadcast(5, "sinfo")
+                                else
+                                    m.broadcast(5, "exinfo")
+                                end
+                                        
                                 messo = false
                                 while messo == false do
                                     local e, _, _, _, _, stableC = event.pull()
