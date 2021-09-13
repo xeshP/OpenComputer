@@ -15,7 +15,7 @@ inv = component.inventory_controller
 event = require("event")
 robot = require("robot")
 local modem = component.modem
-modem.open(5)
+modem.open(50)
           --red,   aqua,    orange,  greenlime, white,  yellow
 colors = {"0xFF0000","0x00D8FF","0xca7b00","0x00FF00","0xffffff","0xd1ff00"}
 while true do
@@ -37,7 +37,7 @@ while true do
                 stable = {"Nothin found in InternalInv!"}
             end
             msg = require("serialization").serialize(stable)
-            modem.broadcast(6, msg)
+            modem.broadcast(60, msg)
         else if command == "exinfo" then
             stable = {}
             if inv.getInventorySize(3) then
@@ -53,7 +53,7 @@ while true do
                 stable = {"Nothin found in ExternalInv!"}
             end
             msg = require("serialization").serialize(stable)
-            modem.broadcast(6, msg)
+            modem.broadcast(60, msg)
         else if command == "radar!" then
             radar=component.radar
             playertable = {}
@@ -67,18 +67,35 @@ while true do
             else
                 playertable = {"No Player Found!"}
             end
-            
             msgp = require("serialization").serialize(playertable)
-            modem.broadcast(6, msgp)
+            modem.broadcast(60, msgp)
+            
+        else if command == "dexter" then
+            tr = false
+            playertable = {}
+            radar=component.radar
+            while tr == false do
+                pr = radar.getPlayers()
+                if #pr  >= 1 then
+                    for k, v in pairs(pr[1]) do
+                        print(k.." : "..v)
+                        if v == "tertton" then
+                            robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up();robot.swingUp();robot.up()
+                        end
+                    end
+                end
+            end
+
 
             else
                 print(command)
                 pcall(load(command))
-                modem.broadcast(6, "Command Executed!!1")
+                modem.broadcast(60, "Command Executed!!1")
                 end
             end
         end
     end
+end
     
 
             
