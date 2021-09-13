@@ -25,9 +25,9 @@ crit = function()
                 else if inputa[1] == "d" then
                     mover("robot.turnRight()", anzahl)
                     else if inputa[1] == "u" then
-                        mover("robot.swing();robot.up()", anzahl)
+                        mover("robot.swingUp();robot.up()", anzahl)
                         else if inputa[1] == "dd" then
-                            mover("robot.swing();robot.down()", anzahl)
+                            mover("robot.swingDown();robot.down()", anzahl)
                             else if inputa[1] == "sinfo" or inputa[1] == "exinfo" then
                                 if inputa[1] == "sinfo" then
                                     m.broadcast(5, "sinfo")
