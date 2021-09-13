@@ -2,7 +2,7 @@ component = require("component")
 
 event = require("event")
 m=component.modem
-m.open(6)
+m.open(60)
 
 
 crit = function()
@@ -30,9 +30,9 @@ crit = function()
                             mover("robot.swingDown();robot.down()", anzahl)
                             else if inputa[1] == "sinfo" or inputa[1] == "exinfo" then
                                 if inputa[1] == "sinfo" then
-                                    m.broadcast(5, "sinfo")
+                                    m.broadcast(50, "sinfo")
                                 else
-                                    m.broadcast(5, "exinfo")
+                                    m.broadcast(50, "exinfo")
                                 end
                                         
                                 messo = false
@@ -55,6 +55,21 @@ crit = function()
                                     else if inputa[1] == "rce" then
                                         rceline = io.read()
                                         rce(rceline)
+                                        else if inputa[1] == "take" then
+                                            strint = {}
+                                            for substring in line:gmatch("%S+") do
+                                                table.insert(strint, substring)
+                                                print(line)
+                                                takef(strint[2], strint[3])
+                                                end
+                                            else if inputa[1] == "suck" then
+                                                strint = {}
+                                                for substring in line:gmatch("%S+") do
+                                                    table.insert(strint, substring)
+                                                    print(line)
+                                                    suckf(strint[2], strint[3])
+                                                end
+                                            end
                                         end
                                     end
                                 end
@@ -68,10 +83,98 @@ crit = function()
     end
     
 
+suckf = function(slt, dir)
+if not slt then
+    print("take | Slot (u|d)")
+    else if slt == "all" then
+        if not dir then
+            for sloto = 1, 16 do
+                m.broadcast(50, "robot.select("..sloto..");robot.suck()")
+                end
+            else
+                if dir == "u" then
+                    for sloto = 1, 16 do
+                        m.broadcast(50, "robot.select("..sloto..");robot.suckUp()")
+                        end
+                    else if dir == "d" then
+                        for sloto = 1, 16 do
+                            m.broadcast(50, "robot.select("..sloto..");robot.suckDown()")
+                            end
+                        else
+                            print("Schreib u oder d als param 2")
+                            end
+                        end
+                    end
+                    
+                        
+    else
+        
+        if type(slt) ~= "number" then
+            numb = 1
+            dir = slt
+            else
+                numb = tonumber(slt)
+        end
+        
+        if not dir then
+            m.broadcast(50, "robot.select("..numb..");robot.suck()")
+            else
+                
+                if dir == "u" then
+                    m.broadcast(50, "robot.select("..numb..");robot.suckDown()")
+                    else if dir == "d" then
+                        m.broadcast(50, "robot.select("..numb..");robot.suckDown()")
+                        else
+                            print("Schreib u oder d als start param")
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    
+            
+
+
+
+
+takef = function(slt, dir)
+    if dir == "u" then
+        print("up")
+        sido = 1
+    else if dir == "d" then
+        print("down")
+        sido = 0
+    else
+        print("front")
+        sido = 3
+        end
+    end
+
+
+    if slt == nil then
+        slt = 1
+        m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
+    else if slt == "all" then
+        for sltall = 1, 16 do
+            m.broadcast(50, "inv.suckFromSlot("..sido..", "..sltall..")")
+        end
+        os.sleep(8)
+        print("Complete!!1")
+    else
+        m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
+        end
+    end
+    
+    
+end
+
 
 
 rce = function(rcecommand)
-    m.broadcast(5, rcecommand)
+    m.broadcast(50, rcecommand)
     messi = false
     while messi == false do
         local e, _, _, _, _, msgo = event.pull()
@@ -89,7 +192,7 @@ end
 
 mover = function(dir, anzahl)
     while anzahl >= 1 do
-        m.broadcast(5, dir)
+        m.broadcast(50, dir)
         anzahl = (anzahl-1)
         end
     mess = false
