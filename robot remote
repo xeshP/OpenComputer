@@ -59,15 +59,22 @@ crit = function()
                                             strint = {}
                                             for substring in line:gmatch("%S+") do
                                                 table.insert(strint, substring)
-                                                print(line)
-                                                takef(strint[2], strint[3])
                                                 end
+                                                takef(strint[2], strint[3])
                                             else if inputa[1] == "suck" then
                                                 strint = {}
                                                 for substring in line:gmatch("%S+") do
                                                     table.insert(strint, substring)
-                                                    print(line)
+                                                    end
                                                     suckf(strint[2], strint[3])
+                                                else if inputa[1] == "drop" then
+                                                    print("drops")
+                                                    strint = {}
+                                                    for substring in line:gmatch("%S+") do
+                                                        table.insert(strint, substring)
+                                                    end
+                                                    dropf(strint[2], strint[3])
+                                                    end
                                                 end
                                             end
                                         end
@@ -78,9 +85,9 @@ crit = function()
                     end
                 end
             end
-            
         end
-    end
+        
+
     
 
 suckf = function(slt, dir)
@@ -134,8 +141,55 @@ if not slt then
         end
     end
 
+
+
+
+dropf = function(slt, dir)
+    if not slt then
+        print("drop slot (u|d)")
+        else if slt == "all" then
+            print("all way")
+            if not dir then
+                print("no dir!")
+                for sloto = 1, 16 do
+                    m.broadcast(50, "robot.select("..sloto..");robot.drop()")
+                    end
+                else
+                    if dir == "u" then
+                        print("dir u!")
+                        for sloto = 1, 16 do
+                            m.broadcast(50, "robot.select("..sloto..");robot.dropUp()")
+                            end
+                        else if dir == "d" then
+                            print("dir U!")
+                            for sloto = 1, 16 do
+                                m.broadcast(50, "robot.select("..sloto..");robot.dropDown()")
+                                end
+                            end
+                        end
+                    end
+                else if tonumber(slt) ~= nil then
+                    print("single!")
+                    if not dir then
+                        m.broadcast(50, "robot.select("..tonumber(slt)..");robot.drop()")
+                        else
+                            if dir == "u" then
+                                m.broadcast(50, "robot.select("..tonumber(slt)..");robot.dropUp()")
+                                else if dir == "d" then
+                                    m.broadcast(50, "robot.select("..tonumber(slt)..");robot.dropDown()")
+                                    end
+                                end
+                            end
+                        
+                    end
+                end
+            end
+        end
+        
     
-            
+
+
+
 
 
 
@@ -217,7 +271,15 @@ while ex == false do
     line = io.read()
     if line == "exit" then
         ex = true
-        else
-            crit()
-        end
+    else
+        crit()
     end
+end
+
+
+
+
+
+
+
+
