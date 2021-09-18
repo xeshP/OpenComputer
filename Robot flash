@@ -8,9 +8,10 @@ function FYShuffle( tInput )
     end
     return tReturn
 end
-	
-	
+ 
+ 
 component = require("component")
+pc = require("computer")
 inv = component.inventory_controller
 event = require("event")
 robot = require("robot")
@@ -69,7 +70,7 @@ while true do
             end
             msgp = require("serialization").serialize(playertable)
             modem.broadcast(60, msgp)
-            
+ 
         else if command == "dexter" then
             tr = false
             playertable = {}
@@ -85,8 +86,16 @@ while true do
                     end
                 end
             end
-
-
+ 
+            else if command == "fuel" then
+                print("localfueler")
+                fl = pc.energy()
+                maxwert = pc.maxEnergy()
+                prozentwert = math.floor((fl*100/maxwert))
+                
+                modem.broadcast(60, "Robot Fuel "..prozentwert.."%")
+ 
+ 
             else
                 print(command)
                 pcall(load(command))
@@ -96,15 +105,18 @@ while true do
         end
     end
 end
-    
-
-            
-        
-
+end
+ 
+ 
+ 
+ 
+ 
+ 
     colpast = colors[1]
 	while colpast == colors[1] do
-	    
+ 
 		FYShuffle(colors)
 		end
     robot.setLightColor(tonumber(colors[1]))
     end
+ 
