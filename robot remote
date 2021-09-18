@@ -3,7 +3,7 @@ pc = require("computer")
 event = require("event")
 m=component.modem
 m.open(60)
-
+helpline = print("---------------------------\n W, A, S, D,               |\n select slot               |\n sinfo                     |\n exinfo                    |\n suck all (u|d)            |\n take slot (u|d)           |\n drop slot (u|d)           |\n p slot (u|d)              |\n fuel (slot)               |\n tabletbattery             |\n help                      |\n rce (RemoteCodeExecution) |\n---------------------------")
 
 crit = function()
     inputa = {}
@@ -79,7 +79,7 @@ crit = function()
                                                     end
                                                     dropf(strint[2], strint[3])
                                                     else if line == "help" then
-                                                        print(" W, A, S, D,               |\n select slot               |\n sinfo                     |\n exinfo                    |\n suck all (u|d)            |\n take slot (u|d)           |\n drop slot (u|d)           |\n rce (RemoteCodeExecution) |\n ")
+                                                        print("---------------------------\n W, A, S, D,               |\n select slot               |\n sinfo                     |\n exinfo                    |\n suck all (u|d)            |\n take slot (u|d)           |\n drop slot (u|d)           |\n p slot (u|d)              |\n fuel (slot)               |\n tabletbattery             |\n help                      |\n rce (RemoteCodeExecution) |\n---------------------------")
                                                         else if inputa[1] == "fuel" then
                                                             if line == "fuel" then
                                                                 rce("fuel")
@@ -91,6 +91,17 @@ crit = function()
                                                                             print("fuel (slot)")
                                                                         end
                                                                     end
+                                                                    
+                                                                    else if line == "tabletbattery" then
+                                                                        print("Tabletbattery "..math.floor(pc.energy()*100/pc.maxEnergy()).."%")
+                                                                        
+                                                                        else if inputa[1] == "p" then
+                                                                            placef(inputa[2], inputa[3])
+                                                                            end
+                                                                        end
+                                                                        
+                                                                            
+                                                                        
                                                                     
                                                             end
                                                             
@@ -110,6 +121,53 @@ crit = function()
         end
         
     
+
+
+
+
+
+
+placef = function(slt, dir)
+    if not slt then
+        print("p slot (u|d)")
+        if dir == "u" then
+            print("dir u!")
+            for sloto = 1, 16 do
+                m.broadcast(50, "robot.select("..sloto..");robot.placeUp()")
+                end
+            else if dir == "d" then
+                print("dir U!")
+                for sloto = 1, 16 do
+                    m.broadcast(50, "robot.select("..sloto..");robot.placeDown()")
+                    end
+                end
+            end
+            
+    else if tonumber(slt) ~= nil then
+        ----single!
+        if not dir then
+            m.broadcast(50, "robot.select("..tonumber(slt)..");robot.place()")
+            else
+                if dir == "u" then
+                    m.broadcast(50, "robot.select("..tonumber(slt)..");robot.placeUp()")
+                    else if dir == "d" then
+                        m.broadcast(50, "robot.select("..tonumber(slt)..");robot.placeDown()")
+                        end
+                    end
+                end
+                        
+        end
+    end
+end
+
+
+
+
+
+
+
+
+
 
 suckf = function(slt, dir)
 if not slt then
