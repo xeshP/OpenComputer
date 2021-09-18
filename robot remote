@@ -51,7 +51,12 @@ crit = function()
                                         end
                                     end
                                 else if inputa[1] == "select" then
-                                    rce("robot.select("..anzahl..")")
+                                    if line == "select" then
+                                        print("select slot")
+                                        else
+                                            rce("robot.select("..anzahl..")")
+                                            end
+
                                     else if inputa[1] == "rce" then
                                         rceline = io.read()
                                         rce(rceline)
@@ -68,12 +73,15 @@ crit = function()
                                                     end
                                                     suckf(strint[2], strint[3])
                                                 else if inputa[1] == "drop" then
-                                                    print("drops")
                                                     strint = {}
                                                     for substring in line:gmatch("%S+") do
                                                         table.insert(strint, substring)
                                                     end
                                                     dropf(strint[2], strint[3])
+                                                    else if line == "help" then
+                                                        print(" W, A, S, D,               |\n select slot               |\n sinfo                     |\n exinfo                    |\n suck all (u|d)            |\n take slot (u|d)           |\n drop slot (u|d)           |\n rce (RemoteCodeExecution) |\n ")
+                                                        end
+                                                        
                                                     end
                                                 end
                                             end
@@ -87,12 +95,11 @@ crit = function()
             end
         end
         
-
     
 
 suckf = function(slt, dir)
 if not slt then
-    print("take | Slot (u|d)")
+    print("suck | all (u|d)")
     else if slt == "all" then
         if not dir then
             for sloto = 1, 16 do
@@ -169,7 +176,7 @@ dropf = function(slt, dir)
                         end
                     end
                 else if tonumber(slt) ~= nil then
-                    print("single!")
+                   ----single!
                     if not dir then
                         m.broadcast(50, "robot.select("..tonumber(slt)..");robot.drop()")
                         else
@@ -195,35 +202,48 @@ dropf = function(slt, dir)
 
 
 takef = function(slt, dir)
-    if dir == "u" then
-        print("up")
-        sido = 1
-    else if dir == "d" then
-        print("down")
-        sido = 0
-    else
-        print("front")
-        sido = 3
-        end
-    end
+    
+    if slt == nil and dir == nil then
+        print("take slot (u|d)")
+        else
+            if dir == "u" then
+                sido = 1
+                else if dir == "d" then
+                    sido = 0
+                else if slt == "d" then
+                    sido = 0
+                    slt = 1
+                else if slt == "u" then
+                    sido = 1
+                    slt = 1
+                else
+                    sido = 3
+                    end
+                end
+            end
 
 
-    if slt == nil then
-        slt = 1
-        m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
-    else if slt == "all" then
-        for sltall = 1, 16 do
-            m.broadcast(50, "inv.suckFromSlot("..sido..", "..sltall..")")
-        end
-        os.sleep(8)
-        print("Complete!!1")
-    else
-        m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
+            if slt == nil then
+                slt = 1
+                m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
+            else if slt == "all" then
+                for sltall = 1, 16 do
+                    m.broadcast(50, "inv.suckFromSlot("..sido..", "..sltall..")")
+                end
+                os.sleep(8)
+                print("Complete!!1")
+            else
+                m.broadcast(50, "inv.suckFromSlot("..sido..", "..slt..")")
+                end
+            end
         end
     end
-    
-    
 end
+    
+    
+
+
+
 
 
 
