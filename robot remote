@@ -1,5 +1,5 @@
 component = require("component")
-
+pc = require("computer")
 event = require("event")
 m=component.modem
 m.open(60)
@@ -80,6 +80,20 @@ crit = function()
                                                     dropf(strint[2], strint[3])
                                                     else if line == "help" then
                                                         print(" W, A, S, D,               |\n select slot               |\n sinfo                     |\n exinfo                    |\n suck all (u|d)            |\n take slot (u|d)           |\n drop slot (u|d)           |\n rce (RemoteCodeExecution) |\n ")
+                                                        else if inputa[1] == "fuel" then
+                                                            if line == "fuel" then
+                                                                rce("fuel")
+                                                                else
+                                                                    if tonumber(inputa[2]) ~= nil then
+                                                                        print("fuel get refilled with slot["..inputa[2].."]")
+                                                                        rce("robot.select("..inputa[2]..");component.generator.insert()")
+                                                                        else
+                                                                            print("fuel (slot)")
+                                                                        end
+                                                                    end
+                                                                    
+                                                            end
+                                                            
                                                         end
                                                         
                                                     end
