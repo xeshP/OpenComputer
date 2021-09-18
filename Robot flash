@@ -88,7 +88,6 @@ while true do
             end
  
             else if command == "fuel" then
-                print("localfueler")
                 fl = pc.energy()
                 maxwert = pc.maxEnergy()
                 prozentwert = math.floor((fl*100/maxwert))
