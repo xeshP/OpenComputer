@@ -1,7 +1,7 @@
 component = require("component")
 compressor = component.advanced_air_compressor
 transposer1 = "a08f3aa3-e4a4-45d8-ab10-14eca5aab9a4"
-transposer2 = "e0257988-f07d-4d4a-a77f-535dd3a35ac9"
+transposer2 = "1187effb-116e-4b79-8d43-7bdfee44618e"
 compressorhash1 = "91246d04-ee67-4bb8-a4bd-c0a88baf1af4"
 compressorhash2 = "49a300bd-cea9-41f2-890a-27a2b3937776"
 inv1 = component.proxy(transposer1)
