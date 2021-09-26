@@ -12,6 +12,22 @@ slash=filer:read("*all")
 filer:close()
 
 
+
+lamps = true     -------------------this is optional for lamps!!
+if lamps == true then
+    PROXYHASH = "da4bb5bc-3eab-42c1-96d5-0c410bd1dae8"
+    prox = component.proxy(PROXYHASH)
+    for k,v in pairs(component.methods(PROXYHASH)) do
+        print(k)
+    end
+    os.sleep(3)
+
+end
+
+
+
+
+
 term.clear()
 -----textscale
 gpu.setResolution(50, 20)
@@ -124,6 +140,16 @@ term.setCursor(1,15)
 term.write(" der Kunde muss jedoch nicht warten und kriegt")
 term.setCursor(1,16)
 term.write(" sofort 50% mehr Kohle Energie ausbezahlt.")
+
+
+if lamps == true then
+    if prox.isOn() == false then
+        prox.turnOn() 
+    end
+end
+
+
+
 end
 
 
@@ -228,6 +254,14 @@ if depsize == 27 and inpsize == 27 then
     term.write("Max tauschbare Kohle :"..math.floor(frtrade))
     fortrade = 0
     depsize = 27
+    
+    
+    
+    
+    
+    
+    
+    
     while round <= depsize do
         if type(inv.getStackInSlot(sides.down, round)) == "table" then
             sizr = tostring(inv.getStackInSlot(sides.down, round).size)
