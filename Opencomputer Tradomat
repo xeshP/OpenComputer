@@ -15,7 +15,7 @@ filer:close()
 
 lamps = true     -------------------this is optional for lamps!!
 if lamps == true then
-    PROXYHASH = "da4bb5bc-3eab-42c1-96d5-0c410bd1dae8"
+    PROXYHASH = "6b578485-ac4b-456b-961b-d91e87bbddf4"
     prox = component.proxy(PROXYHASH)
     for k,v in pairs(component.methods(PROXYHASH)) do
         print(k)
