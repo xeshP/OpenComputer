@@ -1,0 +1,54 @@
+filer=io.open("listp","r")
+cont=filer:read("*all")
+filer:close()
+component = require("component")
+shell = require("shell")
+tablo = {}
+folder = "/home/benz/"
+name = "benz"
+itemslot = 1
+ 
+component = require("component")
+inv = component.transposer
+ 
+ 
+ 
+function mysplit (inputstr, sep)
+        if sep == nil then
+                sep = "%s"
+        end
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+                table.insert(tablo, str)
+        end
+end
+ 
+mysplit(cont, "!")
+ 
+for rn = 1, #tablo do
+    local fio = io.open(folder..name..rn..".3dm","w")
+    fio:write(tablo[rn])
+    fio:close()
+ 
+    print("_______________________________"..rn.."____________________________________")
+    os.sleep(3)
+    os.execute("print3d "..folder..name..rn..".3dm")
+    founds = false
+    while founds == false do
+        if inv.getSlotStackSize(2, 3) > 0 then
+            founds = true
+            inv.transferItem(2, 3, 1, 3, itemslot)
+            itemslot = itemslot+1
+            print("Transfer Complete!!!1")
+        end
+    os.sleep(2)
+end
+ 
+ 
+end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
