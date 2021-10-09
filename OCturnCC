@@ -1,0 +1,25 @@
+component = require("component")
+rnd = 0
+oc = component.list("computer")
+for id in oc do
+    for k,v in pairs(component.methods(id)) do
+        if k == "isOn" then
+            print("CC FOUND!!1")
+            prox = component.proxy(id)
+        end
+    end
+ 
+ 
+end
+ 
+unl = true
+while unl == true do
+    if prox.isOn() == false then
+        print("offline!!")
+        prox.turnOn()
+        print("restarting!")
+    end
+    os.sleep(1)
+
+end
+
