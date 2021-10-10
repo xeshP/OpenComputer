@@ -1,0 +1,46 @@
+nr = {"0,0,0"}
+
+rando = function()
+    math.randomseed(os.time()*math.random(10000000000, 100000000000))
+    return math.floor(math.random(0, 15) and math.random(0, 15) and math.random(0, 15) and math.random(0, 15))
+end
+
+
+
+for inround = 1, 41000 do
+    line = rando()..","..rando()..","..rando()
+    os.sleep(0.00000000000000000000000000001)
+
+    found = false
+    for k,v in ipairs(nr) do
+        
+        if v == line then
+            
+            found = true
+        else
+            
+        end
+    end
+
+    if found == false then
+        table.insert(nr, line)
+    end
+
+
+end
+
+
+print("RESULT------------------------------------------------------")
+
+for k, v in ipairs(nr) do
+    
+end
+print(#nr.." Table lenght!!!!")
+if #nr > 4095 then
+    print("now saving in txt")
+    serial=require"serialization"
+    file=io.open("listo","w")
+    file:write(serial.serialize(nr))
+    file:close()
+
+end
