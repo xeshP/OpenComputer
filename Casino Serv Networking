@@ -1,0 +1,300 @@
+component = require("component")
+thread = require("thread")
+modem = component.modem
+local event = require("event")
+modem.open(10)
+ 
+ 
+ 
+freespace = function()
+    transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+    freestack = transposerpay.getAllStacks(3)
+    freestack = freestack.getAll()
+    
+    
+    rundo = 0
+    for k,tab in pairs(freestack) do
+        if tab.name == "minecraft:air" then
+            rundo = rundo+1
+            transposerpay.transferItem(3,3,64,rundo,k)
+            if rundo == 32 then
+                break
+            end
+        end
+        
+    end
+
+    
+end 
+
+
+t2 = thread.create(function()
+    while true do
+    os.sleep(1)
+    transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+    disk = transposerpay.getStackInSlot(1, 1)
+    if disk == nil then
+        -----
+    else
+        component.modem.broadcast(3, disk.name)  
+    end
+    end
+    
+    
+end)
+
+
+
+
+
+function mysplit (inputstr, sep)
+        if sep == nil then
+                sep = "%s"
+        end
+        local t={}
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+                table.insert(t, str)
+        end
+        return t
+end
+
+
+
+
+
+getmoney = function(currenc)-----------for countmoney atm
+    fullstack = transposerpay.getAllStacks(1)
+    fullstack = fullstack.getAll()
+    maxchesto = #fullstack
+    summe = 0
+    nu = 1
+    nu2 = 1
+    for sloto = 1,maxchesto do
+        itmn = fullstack[sloto]
+        if itmn.name == "minecraft:air" then
+            -----
+        else
+            itemtemp = itmn.size
+            if itmn.name == currenc then
+                transact = false
+                while transact == false do
+                    if transposerpay.transferItem(1,3, itmn.size, sloto, nu) == 0 then
+                        nu = nu+1
+                    else
+                        if transposerpay.getSlotStackSize(1,sloto) > 1 then
+                            --- kein transac
+                        else
+                            transact = true
+                            nu = nu+1
+                            summe = summe+itemtemp
+                        end
+                        
+                        
+                    end
+                    
+                end
+
+            else
+                
+                transact2 = false
+                while transact2 == false do
+                    if transposerpay.transferItem(1,4, itmn.size, sloto, nu2) == 0 then
+                        nu2 = nu2+1
+                    else
+                        transact2 = true
+                        nu2 = nu2+1
+                    end
+                    
+                end
+                
+                
+                
+            end
+            
+        end
+    end
+    return summe
+    
+end
+
+
+
+
+
+moneydropper = function(auszahl, currenc)------for moneydrop on atm
+fullstack = transposerpay.getAllStacks(3)
+fullstack = fullstack.getAll()
+maxchest = #fullstack
+auszahlbetrag = auszahl
+payed = 0
+rando = 1
+maxslot = 0
+while payed < auszahlbetrag do
+for slotmin = 1,maxchest do
+    itm = fullstack[slotmin]
+    transact = false
+    if itm.name == "minecraft:air" then
+        ----slot leer
+    else
+        
+        if itm.name == currenc then
+            maxslot = maxslot+1
+            if maxslot == transposerpay.getInventorySize(4)+1 then
+                maxslot = 1
+            end
+            if itm.size >= auszahlbetrag-payed then
+                if auszahlbetrag-payed == 0 then
+                    ----already payed
+                    print("0er freiwilllig")
+                    transact = true
+                else
+                    
+                    transact = false
+                    while transact == false do
+                        if transposerpay.transferItem(3, 4, auszahlbetrag-payed, slotmin, maxslot) == 0 then
+                            rando = rando+1
+                        else
+                            transact = true
+                            payed = auszahlbetrag
+                            print("payed all!")
+                            print(auszahlbetrag.." x "..currenc.."   [CASHOUT]")
+                            rando = 1
+                            transact = true
+                        end
+                    end
+
+                end
+            else
+                
+
+                while transact == false do
+                    if transposerpay.transferItem(3, 4, itm.size, slotmin, maxslot) == 0 then
+                        rando = rando+1
+                    else
+                        transact = true
+                        payed = payed+itm.size
+                        print("getting more stacks "..payed.."/"..auszahlbetrag)
+                        rando = 1
+
+                    end
+                end
+
+            end
+            
+        end
+        
+    end
+    
+end
+end
+
+
+end
+ 
+ 
+
+ 
+while true do
+    message = ""
+    local _, _, from, port, _, message = event.pull("modem_message")
+    print(message.."     FROM  "..from)
+    if message == "quitbl" then
+        print("Now quiting")
+        transposerblack = component.proxy("91e30a7d-769d-4e68-a81c-6fd1199c9553")
+        transposerblack.transferItem(2, 1, 1, 1, 1)
+        os.sleep(0.3)
+        else if message == "cardgen" then
+            print("cardgen!")
+            transposerdisk = component.proxy("81b75491-18ed-4684-b711-785d81f0ffdf")
+            
+            floppyfalse = false
+            maxfl = transposerdisk.getInventorySize(1)
+            for slsl = 1, maxfl do
+                stck = transposerdisk.getStackInSlot(1, slsl)
+                if stck then
+                    transposerdisk.transferItem(1,2,1,slsl,1)
+                    break
+                end
+            end
+            
+            os.sleep(2.7)
+            transposerdisk.transferItem(2, 4, 1, 1, 1)
+            else if string.find(message, "ßß") then
+                print("ATM PAYOUT!")
+                transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                moneydropper(tonumber(mysplit(message, "ßß")[1]), mysplit(message, "ßß")[3])
+                if tonumber(mysplit(message, "ßß")[2]) == 0 then
+                    ----
+                else
+                    if mysplit(message, "ßß")[3] == "minecraft:diamond_block" then
+                        ingot = "minecraft:diamond"
+                        else if mysplit(message, "ßß")[3] == "minecraft:gold_block" then
+                            ingot = "minecraft:gold_ingot"
+                            else if mysplit(message, "ßß")[3] == "minecraft:emerald_block" then
+                                ingot = "minecraft:emerald"
+                            end
+                        end
+                        
+                    end
+                    print("outputting rest "..tonumber(mysplit(message, "ßß")[2]))
+                    moneydropper(tonumber(mysplit(message, "ßß")[2]), ingot)
+                end
+                else if string.find(message, "ßITEM") then
+                    print("ATM COUNT!")
+                    transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                    it = mysplit(message, "ßITEM")[1]
+                    sut = getmoney(it)
+                    print("Blöcke "..sut.." = "..(sut*9).."Credit")
+                    sut = tostring(sut*9)
+                    component.modem.broadcast(111, sut)
+                    freespace()
+                    else if message == "atmchestinfo" then
+                        print("ATMCHESTdiskinfo")
+                        transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                        disk = transposerpay.getStackInSlot(1, 1)
+                        if disk == nil then
+                            component.modem.broadcast(3, "nil")
+                        else
+                            component.modem.broadcast(3, disk.name)  
+                        end
+                    else if message == "dropindisk" then
+                        print("ATM dropindsik")
+                        transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                        transposerpay.transferItem(1,5,1,1,1)
+                        else if message == "dropoutdisk" then
+                            transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                            transposerpay.transferItem(5,4,1,1,1)
+                            else if message == "falseitem" then
+                                transposerpay = component.proxy("9be7f968-f0e2-460e-9a2e-47dbb9454059")
+                                for slk = 1,3 do
+                                    if transposerpay.getStackInSlot(1,slk) == nil then
+                                        ----
+                                    else
+                                        maxsl = transposerpay.getSlotStackSize(1,slk)
+                                        transposerpay.transferItem(1,4,maxsl,slk,1)
+                                    end
+                                end
+ 
+                                end
+                            end
+                        
+                        end
+                        
+
+
+
+                        end
+                        
+                    
+                    
+                    end
+                
+                end
+            end
+            
+    end
+    os.sleep(0.2)
+end
+
+
+thread.waitForAny({t2})
