@@ -1,25 +1,29 @@
 component = require("component")
 rnd = 0
+idvalid = {}
 oc = component.list("computer")
 for id in oc do
     for k,v in pairs(component.methods(id)) do
         if k == "isOn" then
-            print("CC FOUND!!1")
-            prox = component.proxy(id)
+            table.insert(idvalid, id)
+            print("CC FOUND!! ["..#idvalid.."] "..id)
         end
     end
  
  
 end
- 
+
 unl = true
 while unl == true do
-    if prox.isOn() == false then
-        print("offline!!")
-        prox.turnOn()
-        print("restarting!")
+    
+    for idn = 1,#idvalid do
+        prox = component.proxy(idvalid[idn])
+        if prox.isOn() == false then
+            print("restarting! ["..idn.."] "..idvalid[idn])
+            print(prox.turnOn())
+        end
+            
     end
     os.sleep(1)
 
 end
-
