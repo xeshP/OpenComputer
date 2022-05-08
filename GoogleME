@@ -1,4 +1,5 @@
 component = require("component")
+term = require("term")
 gpu = component.gpu
 local width, height = gpu.getResolution()
 serial=require("serialization")
@@ -62,13 +63,15 @@ searchme = function(eingabe)
     end
 end
 
-
-term.setCursor(width/2-9, height/2)
-term.write("GoogleME : ")
-inputbar = io.read()
-print(searchme(tostring(inputbar)))
-term.write("                                                                ")
-term.write("GoogleME : ")
+loop = true
+while loop == true do
+    term.setCursor(width/2-9, height/2)
+    term.write("GoogleME : ")
+    inputbar = io.read()
+    print(searchme(tostring(inputbar)))
+    io.read()
+    term.clear()
+end
 
 
 
