@@ -1,0 +1,67 @@
+component = require("component")
+gpu = component.gpu
+local width, height = gpu.getResolution()
+serial=require("serialization")
+
+
+local file=io.open("logme","r")
+local text=file:read("*all")
+tablo = serial.unserialize(text)
+tabler = file
+file:close()
+
+
+
+linenumber = 1
+aligner = function(text)
+    gpu.set(width / 2 - #text / 2, linenumber, text)
+    linenumber = linenumber+1
+end
+
+
+searchme = function(label)
+    returncounter = 0
+    if string.find(label, ":") then
+        searchparam = "name"
+    else
+        searchparam = "label"
+    end
+    for anzahl,itemtab in pairs(tablo) do
+        if anzahl ~= "n" then
+            if searchparam == "name" then
+                if itemtab.name == label then
+                    print("["..(returncounter+1).."]")
+                    for info, infodetail in pairs(itemtab) do
+                        print("  "..info.." : "..tostring(infodetail))
+                    end
+                    returncounter = returncounter+1
+                end
+                
+                
+            else if searchparam == "label" then
+                if itemtab.label == label then
+                    print("["..(returncounter+1).."]")
+                    for info, infodetail in pairs(itemtab) do
+                        print("  "..info.." : "..tostring(infodetail))
+                    end
+                    returncounter = returncounter+1
+                    end
+                    
+                end
+            end
+        else
+            return returncounter
+        end
+    end
+end
+
+
+term.setCursor(width/2-9, height/2)
+term.write("GoogleME : ")
+inputbar = io.read()
+print(searchme(tostring(inputbar)))
+term.write("                                                                ")
+term.write("GoogleME : ")
+
+
+
