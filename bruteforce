@@ -54,7 +54,7 @@ for id = 1,#nr do
                 else
                     maxsize = 27
                     end
-                    stacks = inv.getAllStacks(3)
+                    stacks = inv.getAllStacks(side)
                     for stack in stacks do
                         if stack.name ~= "minecraft:air" and stack.name ~= nil then
                             print(stack.name)
