@@ -19,22 +19,26 @@ aligner = function(text)
 end
 
 
+stringtofloat = function(numstr)
+    if #numstr <= 2 then
+        numstr = tostring(numstr..".0")
+    else
+        punktcheck = string.sub(numstr, #numstr-1, #numstr-1)
+        if punktcheck ~= "." then
+            numstr = tostring(numstr..".0")
+        end
+    end
+    return tonumber(numstr)
+end
+
+
+
 searchme = function(eingabe)
     returncounter = 0
     if string.find(eingabe, ":") then
         searchparam = "name"
     else if string.sub(eingabe, 1, 5) == "size=" then
-        numstr = string.sub(eingabe, 6, #eingabe)
-        if #numstr <= 2 then
-            numstr = tostring(numstr..".0")
-        else
-            punktcheck = string.sub(numstr, #numstr-1, #numstr-1)
-            if punktcheck ~= "." then
-                numstr = tostring(numstr..".0")
-            end
-        end
-        numstr = tonumber(numstr)
-        eingabe = numstr
+        eingabe = stringtofloat(string.sub(eingabe, 6, #eingabe))
         searchparam = "size"
     else
         searchparam = "label"
