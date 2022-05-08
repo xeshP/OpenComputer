@@ -1,3 +1,4 @@
+side = 3   ----transposer side to chest or tank
 component = require("component")
 inv = component.transposer
 serial=require"serialization"
@@ -40,7 +41,7 @@ for id = 1,#nr do
  
     chest.setFrequency(one,two,three)
     if choice == "tank" then
-        invo = inv.getTankLevel(2)
+        invo = inv.getTankLevel(side)
         if invo > 0 then
             print(one.."!"..two.."!"..three)
             print("fluid tank found!!!")
@@ -54,7 +55,7 @@ for id = 1,#nr do
                     maxsize = 27
                     end
             for slot = 1, maxsize do
-                invo = inv.getSlotStackSize(2, slot)
+                invo = inv.getSlotStackSize(side, slot)
                 if invo > 0 then
                     print(one.."!"..two.."!"..three)
                     print("ITEM FOUND!!!")
