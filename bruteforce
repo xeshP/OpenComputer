@@ -54,16 +54,16 @@ for id = 1,#nr do
                 else
                     maxsize = 27
                     end
-            for slot = 1, maxsize do
-                invo = inv.getSlotStackSize(side, slot)
-                if invo > 0 then
-                    print(one.."!"..two.."!"..three)
-                    print("ITEM FOUND!!!")
-                    io.read()
+                    stacks = inv.getAllStacks(3)
+                    for stack in stacks do
+                        if stack.name ~= "minecraft:air" and stack.name ~= nil then
+                            print(stack.name)
+                            print(one.."!"..two.."!"..three)
+                            print("ITEM FOUND!!1$$$")
+                            io.read()
+                        end
                     end
- 
- 
-                end
+                    
  
             end
  
