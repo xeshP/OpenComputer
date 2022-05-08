@@ -2,39 +2,38 @@ nr = {"0,0,0"}
 
 rando = function()
     math.randomseed(os.time()*math.random(10000000000, 100000000000))
-    return math.floor(math.random(0, 15) and math.random(0, 15) and math.random(0, 15) and math.random(0, 15))
+    return math.floor(math.random(0,15))
 end
 
 
 
-for inround = 1, 41000 do
-    line = rando()..","..rando()..","..rando()
-    os.sleep(0.00000000000000000000000000001)
-
-    found = false
-    for k,v in ipairs(nr) do
-        
-        if v == line then
-            
-            found = true
-        else
-            
-        end
+indexOf = function ( tab, value )
+  for index, val in ipairs(tab) do
+    if value == val then
+      return index
+    else
+      return -1
     end
+  end
+end
 
-    if found == false then
+loop = true
+while loop == true do
+    line = rando()..","..rando()..","..rando()
+    print(line)
+    if indexOf(nr,line) == -1 then
         table.insert(nr, line)
     end
-
-
+    print(#nr)
+    if #nr == 4096 then
+        loop = false
+    end
+    os.sleep()
 end
 
 
 print("RESULT------------------------------------------------------")
 
-for k, v in ipairs(nr) do
-    
-end
 print(#nr.." Table lenght!!!!")
 if #nr > 4095 then
     print("now saving in txt")
