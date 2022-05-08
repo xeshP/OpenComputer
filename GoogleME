@@ -12,7 +12,6 @@ tabler = file
 file:close()
 
 
-
 linenumber = 1
 aligner = function(text)
     gpu.set(width / 2 - #text / 2, linenumber, text)
@@ -33,7 +32,6 @@ stringtofloat = function(numstr)
 end
 
 
-
 searchme = function(eingabe)
     returncounter = 0
     if string.find(eingabe, ":") then
@@ -41,11 +39,24 @@ searchme = function(eingabe)
     else if string.sub(eingabe, 1, 5) == "size=" then
         eingabe = stringtofloat(string.sub(eingabe, 6, #eingabe))
         searchparam = "size"
+    else if string.sub(eingabe, 1, 7) == "damage=" then
+        eingabe = stringtofloat(string.sub(eingabe, 8, #eingabe))
+        searchparam = "damage"
+    else if string.sub(eingabe, 1, 10) == "maxDamage=" then
+        eingabe = stringtofloat(string.sub(eingabe, 11, #eingabe))
+        searchparam = "maxDamage"
+    else if string.sub(eingabe, 1, 7) == "hasTag=" then
+        eingabe = string.sub(eingabe, 8, #eingabe)
+        print(eingabe)
+        searchparam = "hasTag"
     else
         searchparam = "label"
         end
     end
-    
+    end
+    end
+    end
+
         
     for anzahl,itemtab in pairs(tablo) do
         if anzahl ~= "n" then
@@ -63,8 +74,8 @@ searchme = function(eingabe)
     end
 end
 
-loop = true
-while loop == true do
+
+while true do
     term.setCursor(width/2-9, height/2)
     term.write("GoogleME : ")
     inputbar = io.read()
