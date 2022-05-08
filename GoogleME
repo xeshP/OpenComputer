@@ -53,6 +53,14 @@ searchme = function(eingabe)
             eingabe = false
         end
         searchparam = "hasTag"
+    else if string.sub(eingabe, 1, 12) == "isCraftable=" then
+        eingabe = string.sub(eingabe, 13, #eingabe)
+        if eingabe == "true" then
+            eingabe = true
+        else
+            eingabe = false
+        end
+        searchparam = "isCraftable"
     else
         searchparam = "label"
         end
@@ -60,7 +68,7 @@ searchme = function(eingabe)
     end
     end
     end
-
+    end
         
     for anzahl,itemtab in pairs(tablo) do
         if anzahl ~= "n" then
