@@ -34,6 +34,7 @@ searchme = function(eingabe)
             end
         end
         numstr = tonumber(numstr)
+        eingabe = numstr
         searchparam = "size"
     else
         searchparam = "label"
