@@ -19,16 +19,31 @@ aligner = function(text)
 end
 
 
-searchme = function(label)
+searchme = function(eingabe)
     returncounter = 0
-    if string.find(label, ":") then
+    if string.find(eingabe, ":") then
         searchparam = "name"
+    else if string.sub(eingabe, 1, 5) == "size=" then
+        numstr = string.sub(eingabe, 6, #eingabe)
+        if #numstr <= 2 then
+            numstr = tostring(numstr..".0")
+        else
+            punktcheck = string.sub(numstr, #numstr-1, #numstr-1)
+            if punktcheck ~= "." then
+                numstr = tostring(numstr..".0")
+            end
+        end
+        numstr = tonumber(numstr)
+        searchparam = "size"
     else
         searchparam = "label"
+        end
     end
+    
+        
     for anzahl,itemtab in pairs(tablo) do
         if anzahl ~= "n" then
-            if itemtab[searchparam] == label then
+            if itemtab[searchparam] == eingabe then
                 print("["..(returncounter+1).."]")
                 for info, infodetail in pairs(itemtab) do
                     print("  "..info.." : "..tostring(infodetail))
