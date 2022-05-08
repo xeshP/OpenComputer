@@ -49,20 +49,15 @@ for id = 1,#nr do
             end
  
         else
-            if inpst == "chest fast" then
-                maxsize = 2
-                else
-                    maxsize = 27
+            stacks = inv.getAllStacks(side)
+            for stack in stacks do
+                if stack.name ~= "minecraft:air" and stack.name ~= nil then
+                    print(stack.name)
+                    print(one.."!"..two.."!"..three)
+                    print("ITEM FOUND!!1$$$")
+                    io.read()
                     end
-                    stacks = inv.getAllStacks(side)
-                    for stack in stacks do
-                        if stack.name ~= "minecraft:air" and stack.name ~= nil then
-                            print(stack.name)
-                            print(one.."!"..two.."!"..three)
-                            print("ITEM FOUND!!1$$$")
-                            io.read()
-                        end
-                    end
+                end
                     
  
             end
