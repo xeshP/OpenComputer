@@ -47,7 +47,11 @@ searchme = function(eingabe)
         searchparam = "maxDamage"
     else if string.sub(eingabe, 1, 7) == "hasTag=" then
         eingabe = string.sub(eingabe, 8, #eingabe)
-        print(eingabe)
+        if eingabe == "true" then
+            eingabe = true
+        else
+            eingabe = false
+        end
         searchparam = "hasTag"
     else
         searchparam = "label"
