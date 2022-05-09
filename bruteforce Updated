@@ -3,6 +3,7 @@ component = require("component")
 inv = component.transposer
 print("chest or tank")
 inpst = io.read()
+count = 0
 if inpst == "tank" then
     chest = component.ender_tank
     choice = "tank"
@@ -10,10 +11,11 @@ if inpst == "tank" then
         for two = 0,15 do
             for three = 0,15 do
                 chest.setFrequency(one,two,three)
-                invo = inv.getTankLevel(side)
-                if invo > 0 then
+                count = count+1
+                print("("..count.."/4096")
+                if inv.getTankLevel(side) > 0 then
                     print(one.."!"..two.."!"..three)
-                    print("fluid tank found!!!")
+                    print("FLUID TANK FOUND!!1 $$$")
                     io.read()
                 end
                 
@@ -28,12 +30,13 @@ else
             for three = 0,15 do
                 chest.setFrequency(one,two,three)
                 count = count+1
+                print("("..count.."/4096")
                 stacks = inv.getAllStacks(side)
                 for stack in stacks do
                     if stack.name ~= "minecraft:air" and stack.name ~= nil then
                         print(stack.name)
                         print(one.."!"..two.."!"..three)
-                        print("ITEM FOUND!!1$$$")
+                        print("ITEM FOUND!!1 $$$")
                         io.read()
                     end
                 end
