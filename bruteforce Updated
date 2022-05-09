@@ -1,0 +1,44 @@
+side = 3   ----transposer side to chest or tank
+component = require("component")
+inv = component.transposer
+print("chest or tank")
+inpst = io.read()
+if inpst == "tank" then
+    chest = component.ender_tank
+    choice = "tank"
+    for one = 0,15 do
+        for two = 0,15 do
+            for three = 0,15 do
+                chest.setFrequency(one,two,three)
+                invo = inv.getTankLevel(side)
+                if invo > 0 then
+                    print(one.."!"..two.."!"..three)
+                    print("fluid tank found!!!")
+                    io.read()
+                end
+                
+            end
+        end
+    end
+else
+    chest = component.ender_chest
+    choice = "chest"
+    for one = 0,15 do
+        for two = 0,15 do
+            for three = 0,15 do
+                chest.setFrequency(one,two,three)
+                count = count+1
+                stacks = inv.getAllStacks(side)
+                for stack in stacks do
+                    if stack.name ~= "minecraft:air" and stack.name ~= nil then
+                        print(stack.name)
+                        print(one.."!"..two.."!"..three)
+                        print("ITEM FOUND!!1$$$")
+                        io.read()
+                    end
+                end
+    
+            end
+        end
+    end
+end
