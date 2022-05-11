@@ -32,17 +32,13 @@ stringtofloat = function(numstr)
 end
 
 
-
-
-
-
 searchme = function(eingabe)
     returncounter = 0
     if string.find(eingabe, ":") then
         searchparam = "name"
-    else if string.sub(eingabe,1 ,5) == "find=" then
-        eingabe = string.sub(eingabe, 6, #eingabe)
-        searchparam = "find"
+    else if string.sub(eingabe,1 ,6) == "label=" then
+        eingabe = string.sub(eingabe, 7, #eingabe)
+        searchparam = "label"
     else if string.sub(eingabe, 1, 5) == "size=" then
         eingabe = stringtofloat(string.sub(eingabe, 6, #eingabe))
         searchparam = "size"
@@ -69,7 +65,8 @@ searchme = function(eingabe)
         end
         searchparam = "isCraftable"
     else
-        searchparam = "label"
+        searchparam = "find"
+        eingabe = eingabe
         end
     end
     end
