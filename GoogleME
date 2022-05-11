@@ -32,10 +32,17 @@ stringtofloat = function(numstr)
 end
 
 
+
+
+
+
 searchme = function(eingabe)
     returncounter = 0
     if string.find(eingabe, ":") then
         searchparam = "name"
+    else if string.sub(eingabe,1 ,5) == "find=" then
+        eingabe = string.sub(eingabe, 6, #eingabe)
+        searchparam = "find"
     else if string.sub(eingabe, 1, 5) == "size=" then
         eingabe = stringtofloat(string.sub(eingabe, 6, #eingabe))
         searchparam = "size"
@@ -69,16 +76,32 @@ searchme = function(eingabe)
     end
     end
     end
+    end
         
     for anzahl,itemtab in pairs(tablo) do
         if anzahl ~= "n" then
-            if itemtab[searchparam] == eingabe then
-                print("["..(returncounter+1).."]")
+            if searchparam == "find" then
                 for info, infodetail in pairs(itemtab) do
-                    print("  "..info.." : "..tostring(infodetail))
+                    if string.find(tostring(infodetail),eingabe) then
+                        returncounter = returncounter+1
+                        print("["..returncounter.."]")
+                        for info2, infodetail2 in pairs(itemtab) do
+                            print("  "..info2.." : "..tostring(infodetail2))
+                        end
+                    end
                 end
-                returncounter = returncounter+1
+                
+            else
+                if itemtab[searchparam] == eingabe then
+                    returncounter = returncounter+1
+                    print("["..returncounter.."]")
+                    for info, infodetail in pairs(itemtab) do
+                        print("  "..info.." : "..tostring(infodetail))
+                    end
+ 
+                end
             end
+        
             
         else
             return returncounter
