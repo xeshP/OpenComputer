@@ -1,0 +1,12 @@
+params = {...}
+sleeptime = 1.9
+if #params < 1 then print("Parameter false \n methodis component [sleeptime]") os.exit("Parameter false") end
+if params[2] ~= nil then sleeptime = tonumber(params[2]) end
+component = require("component")
+for ll in component.list(params[1]) do
+  methods = component.methods(ll)
+  for func,result in pairs(methods) do
+    print(func.." = "..tostring(result))
+    os.sleep(sleeptime)
+  end
+end
