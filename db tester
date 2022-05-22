@@ -1,0 +1,28 @@
+component = require("component")
+serialize = require("serialization")
+dbcount = 0
+hashtable = {}  ---tab["label"] = "hash"t
+
+filer=io.open("dblist.txt","r")
+cont=filer:read("*all")
+filer:close()
+dbtable = serialize.unserialize(cont)
+
+
+save = function(table)
+  local f=io.open("dblist.txt","a")
+  f:write(serialize.serialize(table)..";")
+  f:close()
+end
+
+cleardb = function(address)
+    for r = 1,81 do
+        component.proxy(address).clear(r)
+    end
+end
+
+
+ME = component.me_interface
+--items = ME.getItemsInNetwork()
+
+
