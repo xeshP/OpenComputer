@@ -3,10 +3,14 @@ serialize = require("serialization")
 dbcount = 0
 hashtable = {}  ---tab["label"] = "hash"t
 
-filer=io.open("dblist.txt","r")
-cont=filer:read("*all")
-filer:close()
-dbtable = serialize.unserialize(cont)
+readnserial = function(filename)
+    filer=io.open(filename,"r")
+    cont=filer:read("*all")
+    filer:close()
+    return serialize.unserialize(cont)
+end
+
+dbtable = readnserial("dblist.txt")
 
 
 save = function(table)
@@ -22,6 +26,11 @@ cleardb = function(address)
 end
 
 
+print(dbtable.database3)
+
+print(dbtable)
+
+print(dbtable)
 ME = component.me_interface
 --items = ME.getItemsInNetwork()
 
