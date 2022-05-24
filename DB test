@@ -24,9 +24,10 @@ storeto = function(label, db)
         end
 end
     print(num)
+    local hashtosave = {}
     ME.store({label = label}, tostring(db), num)
-    hashtable[label] = component.proxy(tostring(db)).computeHash(num)
-    save(hashtable, "dbhash.txt")
+    hashtosave[label] = component.proxy(tostring(db)).computeHash(num)
+    save(hashtosave, "dbhash.txt")
 end
 
 
@@ -49,5 +50,12 @@ ME = component.me_interface
 --items = ME.getItemsInNetwork()
 
 storeto("Dirt", dbtable.database1)
+storeto("Diamond", dbtable.database1)
+storeto("Sand", dbtable.database1)
+storeto("Dirt", dbtable.database1)
+
+
+
+
 
 
