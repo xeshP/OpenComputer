@@ -17,6 +17,7 @@ dbtable = readnserial("dblist.txt")
 storeto = function(label, db)
     hashtable = readnserial("dbhash.txt")
     print(hashtable)
+    print(#hashtable)
     
     if #hashtable <= 91 then
         num = #hashtable+1
@@ -54,6 +55,15 @@ ME = component.me_interface
 --items = ME.getItemsInNetwork()
 
 storeto("Diamond", dbtable.database1)
+storeto("Dirt", dbtable.database1)
+storeto("Stone", dbtable.database1)
+storeto("Redstone", dbtable.database1)
+storeto("Glowstone", dbtable.database1)
+
+for k,v in pairs(hashtable) do
+    print(k)
+    print(v)
+end
 
 
 
