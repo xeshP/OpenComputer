@@ -27,14 +27,16 @@ end
     local hashtosave = {}
     ME.store({label = label}, tostring(db), num)
     hashtosave[label] = component.proxy(tostring(db)).computeHash(num)
-    save(hashtosave, "dbhash.txt")
+    save(label, hashtosave, "dbhash.txt")
 end
 
 
-save = function(table, filename)
-  local f=io.open(filename,"a")
-  f:write(serialize.serialize(table)..";")
-  f:close()
+save = function(label, hashslot, filename)
+    local data = readnserial("dbhash.txt")
+    data[label] = hashslot
+    local f=io.open(filename,"a")
+    f:write(serialize.serialize(table))
+    f:close()
 end
 
 cleardb = function(address)
