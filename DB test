@@ -6,15 +6,18 @@ dbcount = 0
 readnserial = function(filename)
     filer=io.open(filename,"r")
     cont=filer:read("*all")
+    tabsi = serialize.unserialize(cont)
     filer:close()
-    return serialize.unserialize(cont)
+    return tabsi
 end
 
 dbtable = readnserial("dblist.txt")
-hashtable = readnserial("dbhash.txt")
-if hashtable == nil then hashtable = {} end
+--if hashtable == nil then hashtable = {} end
 
 storeto = function(label, db)
+    hashtable = readnserial("dbhash.txt")
+    print(hashtable)
+    
     if #hashtable <= 91 then
         num = #hashtable+1
     else
@@ -24,9 +27,8 @@ storeto = function(label, db)
         end
 end
     print(num)
-    local hashtosave = {}
     ME.store({label = label}, tostring(db), num)
-    hashtosave[label] = component.proxy(tostring(db)).computeHash(num)
+    hashtosave = component.proxy(tostring(db)).computeHash(num)
     save(label, hashtosave, "dbhash.txt")
 end
 
@@ -34,8 +36,8 @@ end
 save = function(label, hashslot, filename)
     local data = readnserial("dbhash.txt")
     data[label] = hashslot
-    local f=io.open(filename,"a")
-    f:write(serialize.serialize(table))
+    local f=io.open(filename,"w")
+    f:write(serialize.serialize(data))
     f:close()
 end
 
@@ -51,11 +53,7 @@ end
 ME = component.me_interface
 --items = ME.getItemsInNetwork()
 
-storeto("Dirt", dbtable.database1)
 storeto("Diamond", dbtable.database1)
-storeto("Sand", dbtable.database1)
-storeto("Dirt", dbtable.database1)
-
 
 
 
