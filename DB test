@@ -11,25 +11,29 @@ readnserial = function(filename)
     return tabsi
 end
 
+
 dbtable = readnserial("dblist.txt")
 --if hashtable == nil then hashtable = {} end
 
-storeto = function(label, db)
+storeto = function(label)
+    dbhashcount = tonumber(readnserial("dbhashcount.txt"))
+    print(dbhashcount)
     hashtable = readnserial("dbhash.txt")
-    print(hashtable)
-    print(#hashtable)
     
-    if #hashtable <= 91 then
-        num = #hashtable+1
+    if dbhashcount < 81 then
+        num = dbhashcount+1
+        basenum = 1
     else
-        if (#hashtable/91) > 1 then
-            zwischennum = (math.floor(#hashtable/91)) ---- 2 3 4 5 oder mehr
-            num = #hashtable-(zwischenum*91)+1
+        if (dbhashcount/81) >= 1 then
+            basenum = (math.ceil((dbhashcount+1)/81)) ---- 2 3 4 5 oder mehr
+            num = (dbhashcount-((basenum-1)*81)+1)
         end
 end
-    print(num)
-    ME.store({label = label}, tostring(db), num)
-    hashtosave = component.proxy(tostring(db)).computeHash(num)
+    print(basenum.."  databasenum")
+    print(num.."  database numslot")
+    databasenum = "database"..tostring(basenum)
+    ME.store({label = label}, dbtable[databasenum], num)
+    hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
     save(label, hashtosave, "dbhash.txt")
 end
 
@@ -40,6 +44,9 @@ save = function(label, hashslot, filename)
     local f=io.open(filename,"w")
     f:write(serialize.serialize(data))
     f:close()
+    local f=io.open("dbhashcount.txt", "w")
+    f:write(tostring(dbhashcount+1))
+    f:close()
 end
 
 cleardb = function(address)
@@ -49,23 +56,13 @@ cleardb = function(address)
 end
 
 
-
-
 ME = component.me_interface
+storeto("Stone")
+
 --items = ME.getItemsInNetwork()
-
-storeto("Diamond", dbtable.database1)
-storeto("Dirt", dbtable.database1)
-storeto("Stone", dbtable.database1)
-storeto("Redstone", dbtable.database1)
-storeto("Glowstone", dbtable.database1)
-
-for k,v in pairs(hashtable) do
-    print(k)
-    print(v)
-end
-
-
+--for k,v in pairs(items) do
+--    storeto(v.label)
+--end
 
 
 
