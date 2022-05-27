@@ -36,12 +36,14 @@ end
             namesave = "minecraft:red_mushroom"
         end
         ME.store({name = namesave}, dbtable[databasenum], num)
-        hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+        hashtosave = "exception:"..tostring(num)
+        save("red_mushroom", hashtosave, "dbhash.txt")
     else
         ME.store({label = label}, dbtable[databasenum], num)
         hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+        save(label, hashtosave, "dbhash.txt")
     end
-    save(label, hashtosave, "dbhash.txt")
+    
 end
 
 
