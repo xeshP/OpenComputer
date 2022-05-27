@@ -11,7 +11,6 @@ readnserial = function(filename)
     return tabsi
 end
 
-
 dbtable = readnserial("dblist.txt")
 --if hashtable == nil then hashtable = {} end
 
@@ -45,7 +44,8 @@ save = function(label, hashslot, filename)
     f:write(serialize.serialize(data))
     f:close()
     local f=io.open("dbhashcount.txt", "w")
-    f:write(tostring(dbhashcount+1))
+    dbhashcount = dbhashcount+1
+    f:write(tostring(dbhashcount))
     f:close()
 end
 
@@ -57,12 +57,13 @@ end
 
 
 ME = component.me_interface
-storeto("Stone")
 
---items = ME.getItemsInNetwork()
---for k,v in pairs(items) do
---    storeto(v.label)
---end
+items = ME.getItemsInNetwork()
+for k,v in pairs(items) do
+    if type(v) == "table" then
+        storeto(v.label)
+    end
+end
 
 
 
