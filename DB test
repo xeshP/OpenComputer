@@ -31,8 +31,16 @@ end
     print(basenum.."  databasenum")
     print(num.."  database numslot")
     databasenum = "database"..tostring(basenum)
-    ME.store({label = label}, dbtable[databasenum], num)
-    hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+    if label == "Mushroom" then
+        if namesave == "minecraft:red_flower" then
+            namesave = "minecraft:red_mushroom"
+        end
+        ME.store({name = namesave}, dbtable[databasenum], num)
+        hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+    else
+        ME.store({label = label}, dbtable[databasenum], num)
+        hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+    end
     save(label, hashtosave, "dbhash.txt")
 end
 
@@ -62,6 +70,7 @@ items = ME.getItemsInNetwork()
 for k,v in pairs(items) do
     if type(v) == "table" then
         storeto(v.label)
+        namesave = v.name
     end
 end
 
