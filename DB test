@@ -14,7 +14,7 @@ end
 dbtable = readnserial("dblist.txt")
 --if hashtable == nil then hashtable = {} end
 
-storeto = function(label)
+storeto = function(itemtab)
     dbhashcount = tonumber(readnserial("dbhashcount.txt"))
     print(dbhashcount)
     hashtable = readnserial("dbhash.txt")
@@ -31,19 +31,10 @@ end
     print(basenum.."  databasenum")
     print(num.."  database numslot")
     databasenum = "database"..tostring(basenum)
-    if label == "Mushroom" then
-        if namesave == "minecraft:red_flower" then
-            namesave = "minecraft:red_mushroom"
-        end
-        ME.store({name = namesave}, dbtable[databasenum], num)
-        hashtosave = "exception:"..tostring(num)
-        save("red_mushroom", hashtosave, "dbhash.txt")
-    else
-        ME.store({label = label}, dbtable[databasenum], num)
-        hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
-        save(label, hashtosave, "dbhash.txt")
-    end
-    
+    itemu = {name=itemtab.name,label=itemtab.label,damage=itemtab.damage,maxDamage=itemtab.maxDamage,size=itemtab.size,hasTag=itemtab.hasTag}
+    ME.store(itemu, dbtable[databasenum], num)
+    hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
+    save(itemtab.label, hashtosave, "dbhash.txt")
 end
 
 
@@ -71,8 +62,9 @@ ME = component.me_interface
 items = ME.getItemsInNetwork()
 for k,v in pairs(items) do
     if type(v) == "table" then
-        storeto(v.label)
+        print(v.label)
         namesave = v.name
+        storeto(items[k])
     end
 end
 
