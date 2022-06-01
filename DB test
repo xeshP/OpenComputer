@@ -40,7 +40,13 @@ end
 
 save = function(label, hashslot, filename)
     local data = readnserial("dbhash.txt")
-    data[label] = hashslot
+    if data[label] == nil then
+        data[label] = {}
+        table.insert(data[label],hashslot)
+    else
+        table.insert(data[label], hashslot)
+    end
+    --data[label] = hashslot
     local f=io.open(filename,"w")
     f:write(serialize.serialize(data))
     f:close()
