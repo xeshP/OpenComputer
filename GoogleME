@@ -75,6 +75,9 @@ searchme = function(eingabe)
     end
     end
         
+    
+        
+        
     for anzahl,itemtab in pairs(tablo) do
         if anzahl ~= "n" then
             if searchparam == "find" then
@@ -82,6 +85,8 @@ searchme = function(eingabe)
                     if string.find(tostring(infodetail),eingabe) then
                         returncounter = returncounter+1
                         print("["..returncounter.."]")
+                        os.sleep(1.4)
+                        itemtab["aspects"] = nil -------- will remove aspects from printing
                         for info2, infodetail2 in pairs(itemtab) do
                             print("  "..info2.." : "..tostring(infodetail2))
                         end
@@ -92,6 +97,8 @@ searchme = function(eingabe)
                 if itemtab[searchparam] == eingabe then
                     returncounter = returncounter+1
                     print("["..returncounter.."]")
+                    os.sleep(1.4)
+                    itemtab["aspects"] = nil -------- will remove aspects from printing
                     for info, infodetail in pairs(itemtab) do
                         print("  "..info.." : "..tostring(infodetail))
                     end
@@ -105,6 +112,7 @@ searchme = function(eingabe)
         end
     end
 end
+
 
 
 while true do
