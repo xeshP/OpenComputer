@@ -1,0 +1,13 @@
+component = require("component")
+tape = component.tape_drive
+tru = true
+while tru == true do
+    os.sleep()
+    if tape.getPosition() == 76500 then
+        tape.stop()
+        print("stopped on")
+        print(tape.getPosition())
+        tape.seek(-tape.getPosition())
+        tape.play()
+    end
+end
