@@ -1,0 +1,50 @@
+component = require("component")
+serialize = require("serialization")
+
+readnserial = function(filename)
+    filer=io.open(filename,"r")
+    cont=filer:read("*all")
+    tabsi = serialize.unserialize(cont)
+    filer:close()
+    return tabsi
+end
+dbtable = readnserial("dblist.txt")
+
+hashtoslot = function(hash)
+    local found = 0
+    for k,v in pairs(dbtable) do
+        slot = component.proxy(v).indexOf(hash)
+        if slot > 0 then
+            dbaddy = v
+            found = 1
+            break
+        end
+    end
+    if found == 1 then
+        return dbaddy, slot
+    else
+        return 0
+    end
+end
+
+
+labeltohash = function(label)
+    hashtable = readnserial("dbhash.txt")
+    print(hashtable[label][0])
+    if hashtable[label] == nil then
+        return 0
+    else
+        if #hashtable[label] == 1 then
+            print("single table")
+            return hashtable[label][1]
+        else
+            print("mult table")
+            return hashtable[label]
+        end
+    end
+    
+end
+
+---print(labeltohash("Diamond"))
+dbaddy,num = hashtoslot(labeltohash("Diamond"))
+component.me_exportbus.setExportConfiguration(3,1,dbaddy, num)
