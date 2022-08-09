@@ -16,7 +16,7 @@ if inpst == "TANK" or inpst == "tank" then
                 chest.setFrequency(one,two,three)
                 os.sleep(tonumber(inpun))
                 count = count+1
-                print("("..count.."/4096")
+                print("("..count.."/4096)")
                 if inv.getTankLevel(side) > 0 then
                     print(one.."!"..two.."!"..three)
                     print("FLUID TANK FOUND!!1 $$$")
@@ -40,7 +40,7 @@ else
             for three = 0,15 do
                 chest.setFrequency(one,two,three)
                 count = count+1
-                print("("..count.."/4096")
+                print("("..count.."/4096)")
                 for i = 1,tonumber(runs) do
                 if mode == "SNIPER" or mode == "sniper" then
                     itm = inv.getStackInSlot(side,1)
