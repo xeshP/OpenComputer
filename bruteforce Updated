@@ -7,15 +7,21 @@ count = 0
 if inpst == "TANK" or inpst == "tank" then
     chest = component.ender_tank
     choice = "tank"
+    print("Sleep Timer before Scan: (number)")
+    inpun = io.read()
+    
     for one = 0,15 do
         for two = 0,15 do
             for three = 0,15 do
                 chest.setFrequency(one,two,three)
+                os.sleep(tonumber(inpun))
                 count = count+1
                 print("("..count.."/4096")
                 if inv.getTankLevel(side) > 0 then
                     print(one.."!"..two.."!"..three)
                     print("FLUID TANK FOUND!!1 $$$")
+                    print("=================")
+                    print("=skip or enter=")
                     io.read()
                 end
                 
@@ -27,7 +33,7 @@ else
     choice = "chest"
     print("[FLEX] or [SNIPER]")
     mode = io.read()
-    print("runs: ")
+    print("runs: (number)")
     runs = io.read()
     for one = 0,15 do
         for two = 0,15 do
@@ -44,7 +50,10 @@ else
                         print("ITEM SNIPED!!1 $$$")
                         print("=================")
                         print("=skip or enter=")
-                        io.read()
+                        inpun = io.read()
+                        if inpun == "skip" then
+                            break
+                        end
                     end
                     
                 else
