@@ -32,7 +32,17 @@ end
     print(num.."  database numslot")
     databasenum = "database"..tostring(basenum)
     itemu = {name=itemtab.name,label=itemtab.label,damage=itemtab.damage,maxDamage=itemtab.maxDamage,size=itemtab.size,hasTag=itemtab.hasTag}
+    
     ME.store(itemu, dbtable[databasenum], num)
+
+    if num < 81 then             
+        if component.proxy(dbtable[databasenum]).get(num+1) ~= nil then
+            print(itemtab.name)
+            print("DATABASE ERROR")
+            io.read()
+        end
+    end
+
     hashtosave = component.proxy(dbtable[databasenum]).computeHash(num)
     save(itemtab.label, hashtosave, "dbhash.txt")
 end
