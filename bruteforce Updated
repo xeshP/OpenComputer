@@ -1,8 +1,9 @@
-side = 3   ----transposer side to chest or tank
+side = 1   ----transposer side to chest or tank 1 = up
+computer = require("computer")
 component = require("component")
 inv = component.transposer
 print("[CHEST] or [TANK]")
-inpst = io.read()
+local inpst = io.read()
 count = 0
 if inpst == "TANK" or inpst == "tank" then
     chest = component.ender_tank
@@ -22,6 +23,8 @@ if inpst == "TANK" or inpst == "tank" then
                     print("FLUID TANK FOUND!!1 $$$")
                     print("=================")
                     print("=skip or enter=")
+                    computer.beep()
+                    computer.beep()
                     io.read()
                 end
                 
@@ -29,27 +32,29 @@ if inpst == "TANK" or inpst == "tank" then
         end
     end
 else
-    chest = component.ender_chest
-    choice = "chest"
+    local chest = component.ender_chest
+    local choice = "chest"
     print("[FLEX] or [SNIPER]")
-    mode = io.read()
+    local mode = io.read()
     print("runs: (number)")
-    runs = io.read()
+    local runs = io.read()
     for one = 0,15 do
         for two = 0,15 do
             for three = 0,15 do
                 chest.setFrequency(one,two,three)
                 count = count+1
-                print("("..count.."/4096)")
+                print("("..count.."/4096)"
                 for i = 1,tonumber(runs) do
                 if mode == "SNIPER" or mode == "sniper" then
-                    itm = inv.getStackInSlot(side,1)
+                    local itm = inv.getStackInSlot(side,1)
                     if itm ~= nil then
                         print(itm.name)
                         print(one.."!"..two.."!"..three)
                         print("ITEM SNIPED!!1 $$$")
                         print("=================")
                         print("=skip or enter=")
+                        computer.beep()
+                        computer.beep()
                         inpun = io.read()
                         if inpun == "skip" then
                             break
@@ -57,8 +62,8 @@ else
                     end
                     
                 else
-
-                    stacks = inv.getAllStacks(side)
+                     os.sleep(0)                                   ----------------for memory!
+                    local stacks = inv.getAllStacks(side)
                     for stack in stacks do
                         if stack.name ~= "minecraft:air" and stack.name ~= nil then
                             print(stack.name)
@@ -66,6 +71,8 @@ else
                             print("ITEM FOUND!!1 $$$")
                             print("=================")
                             print("=skip or enter=")
+                            computer.beep()
+                            computer.beep()
                             inpun = io.read()
                             if inpun == "skip" then
                                 break
